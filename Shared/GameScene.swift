@@ -1,0 +1,286 @@
+//
+//  GameScene.swift
+//  The Alan Parsons Project
+//
+//  Created by Thomas Schönmann on 10.04.17.
+//  Copyright © 2017 Thomas Schönmann. All rights reserved.
+//
+
+import SpriteKit
+import GameplayKit
+
+class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    var debugMan: DebugMan = DebugMan()
+    var camRef = SKNode()
+    
+    /// The current view on the scene.
+    var camMenu = SKCameraNode()
+    
+    /// View on top of game, showing the game's global values.
+    var stateValuesView = StateValuesView()
+    
+    // DEBUG ONLY - Type will be altered.
+    var buildMenu = SKSpriteNode()
+    
+    class func newGameScene() -> GameScene {
+        // Load 'GameScene.sks' as an SKScene.
+        guard let scene = SKScene(fileNamed: "GameScene") as? GameScene else {
+            print("Failed to load GameScene.sks")
+            abort()
+        }
+        
+        // Set the scale mode to scale to fit the window
+        scene.scaleMode = .aspectFill
+        
+        return scene
+    }
+    
+    override func didMove(to view: SKView) {
+        self.setUpScene()
+        self.view?.acceptsTouchEvents = true
+        if (self.view?.acceptsTouchEvents)! {
+            print("Accepting touch events.")
+        }
+        //self.view?.wantsRestingTouches = true
+        
+        // Assign base camera.
+        camMenu = (childNode(withName: "menuCamera") as? SKCameraNode)!
+        self.camera = camMenu
+        
+        // DEBUG MAP CREATION
+        //let map = MapBuilder.instance.makeGround()
+        let groundMap = MapManager.instance.maps[.Ground]
+        groundMap?.position = CGPoint(x: 0, y: self.frame.midY)
+        addChild(groundMap!)
+        
+        // DELETE
+        //let shape = SKSpriteNode(imageNamed: "demoCircle")
+        //self.camera?.addChild(shape)
+        
+        // Add state values view.
+        //let state = StateValuesView()
+        self.camera?.addChild(stateValuesView)
+        //print(self.camera?.frame)
+        stateValuesView.position = CGPoint(x: 0, y: camMenu.frame.maxY - 50)
+        
+        // Register camera reference (for moving)
+        camRef = childNode(withName: "camReference")!
+        
+        // Move camera with reference point.
+        let constraint = SKConstraint.distance(SKRange(constantValue: 0), to: camRef)
+        camera?.constraints = [ constraint ]
+        
+        // Register menu bar (ONLY 1 TILE FOR NOW - DEBUG).
+        self.buildMenu = self.camera?.childNode(withName: "forestTower") as! SKSpriteNode
+        
+        // Gesture-recognizers.
+        /*
+        let gestureRecognizer = NSPanGestureRecognizer(target: self, action: #selector(GameScene.handlePanFrom))
+        gestureRecognizer.delegate = self as? NSGestureRecognizerDelegate
+        self.view!.addGestureRecognizer(gestureRecognizer)
+        */
+        physicsWorld.gravity = CGVector.zero
+        physicsWorld.contactDelegate = self
+        
+        // Views should be initalized now, let's hook them up to some listeners.
+        hookUpCallbacks()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        // Called before each frame is rendered
+        //debug.checkIntersection()
+    }
+    
+    // MARK: - Helpers.
+    
+    func setUpScene() {
+        
+        // Observe whenever a resource value has changed.
+        //StateValuesManager.sharedInstance.addObserver(self, forKeyPath: "resourcesChanged", options: NSKeyValueObservingOptions(), context: nil)
+        
+        //StateValuesManager.sharedInstance.callBackReceiver = self
+        
+        
+        //MapManager.sharedInstance.map = childNode(withName: "GroundTiles") as! SKTileMapNode
+        print("Coal: \(StateValuesManager.sharedInstance.getValue(type: .Coal) ?? 0.0)")
+        print("Stone: \(StateValuesManager.sharedInstance.getValue(type: .Stone) ?? 0.0)")
+        print("Gold: \(StateValuesManager.sharedInstance.getValue(type: .Gold) ?? 0.0)")
+        
+        // Demo chaning a val.
+        StateValuesManager.sharedInstance.changeResourceValueTo(val: 200.0, type: .Coal)
+        
+        //debugMan = DebugMan(scene: self)
+        //debugMan.registerCirclesAndMove()
+    }
+    
+    fileprivate func hookUpCallbacks() {
+        StateValuesManager.sharedInstance.resourceCallbackReceiver = stateValuesView
+        //StateValuesManager.sharedInstance.fireCallback(key: <#T##Resources#>, val: <#T##Double#>)
+    }
+    
+    // MARK: - Gesture-recognizers.
+    
+    func handlePanFrom(recognizer: NSPanGestureRecognizer) {
+        print("Panning detected, translation: \(recognizer.translation(in: self.view)).")
+        
+        //recognizer.state == .
+                
+        let xOffset = recognizer.translation(in: self.view).x
+        let yOffset = recognizer.translation(in: self.view).y
+        
+        let xNow = camRef.position.x
+        let yNow = camRef.position.y
+        
+        camRef.position = CGPoint(x: xNow - xOffset, y: yNow - yOffset)
+    }
+    
+    // MARK: - SKPhysics' delegate methods.
+    
+    // Delegte is called when a specific contact happens, its counterpart is called
+    //  when this specific contact ends == per contact one 'didBegin' & 'didEnd'
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        // 1
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        if firstBody.node?.name == "circle1" && secondBody.node?.name == "circle2" {
+            print("First contact happend at circle1.")
+        }
+        
+        if firstBody.node?.name == "circle2" && secondBody.node?.name == "circle1" {
+            print("First contact happend at circle2.")
+        }
+        
+        // 2
+        if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
+            (secondBody.categoryBitMask & PhysicsCategory.Tower != 0)) {
+            //if let monster = firstBody.node as? SKSpriteNode, let projectile = secondBody.node as? SKSpriteNode {
+            //projectileDidCollideWithMonster(projectile: projectile, monster: monster)
+            print("They collided!")
+            
+            let shockwave = SKShapeNode(circleOfRadius: 5)
+            shockwave.zPosition = 1
+            shockwave.position = contact.contactPoint
+            addChild(shockwave)
+            shockwave.run(debugMan.createShockWave())
+        }
+        
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        if contact.bodyA.node?.name == "circle2" || contact.bodyB.node?.name == "circle2" {
+            print("The moving circle has left the intersection are with the tower.")
+        }
+    }
+}
+
+#if os(iOS) || os(tvOS)
+    // Touch-based event handling
+    extension GameScene {
+        
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            
+            for t in touches {
+            }
+        }
+        
+        override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+            for t in touches {
+            }
+        }
+        
+        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+            for t in touches {
+            }
+        }
+        
+        override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+            for t in touches {
+            }
+        }
+    }
+#endif
+
+#if os(OSX)
+    // Mouse-based event handling
+    extension GameScene {
+
+        override func mouseDown(with event: NSEvent) {
+            print("Mouse down event called.")
+            //MapManager.sharedInstance.map.color = SKColor.black
+            //MapManager.sharedInstance.map.removeFromParent()
+        }
+        
+        override func mouseDragged(with event: NSEvent) {
+            print("Mouse dragged."  )
+        }
+        
+        override func mouseUp(with event: NSEvent) {
+            print("Mouse button lifted.")
+        }
+        
+        override func touchesBegan(with event: NSEvent) {
+            print("Touches began.")
+        }
+        
+        override func touchesMoved(with event: NSEvent) {
+            print("Touches moved with event.")
+        }
+        
+        override func touchesEnded(with event: NSEvent) {
+            print("Touches ended.")
+        }
+        
+        override func touchesCancelled(with event: NSEvent) {
+            print("Touches cancelled.")
+        }
+        
+        override func magnify(with event: NSEvent) {
+            print("Magnifying!")
+        }
+    }
+    
+    /*
+    extension NSTouch {
+        /**
+         * Returns the relative position of the touch to the view
+         * NOTE: the normalizedTouch is the relative location on the trackpad. values range from 0-1. And are y-flipped
+         * TODO: debug if the touch area is working with a rect with a green stroke
+         */
+        func pos(_ view:NSView) -> CGPoint{
+            let w = view.frame.size.width
+            let h = view.frame.size.height
+            let touchPos:CGPoint = CGPoint(x: self.normalizedPosition.x, y: 1 + (self.normalizedPosition.y * -1))/*flip the touch coordinates*/
+            
+            let deviceSize:CGSize = self.deviceSize
+            let deviceRatio:CGFloat = deviceSize.width/deviceSize.height/*find the ratio of the device*/
+            let viewRatio:CGFloat = w/h
+            var touchArea:CGSize = CGSize(width: w, height: h)
+
+            /*Uniform-shrink the device to the view frame*/
+            if(deviceRatio > viewRatio){/*device is wider than view*/
+                touchArea.height = h/viewRatio
+                touchArea.width = w
+            }else if(deviceRatio < viewRatio){/*view is wider than device*/
+                touchArea.height = h
+                touchArea.width = w/deviceRatio
+            }/*else ratios are the same*/
+            let touchAreaPos:CGPoint = CGPoint(
+                x: (w - touchArea.width)/2,
+                y: (h - touchArea.height)/2)/*we center the touchArea to the View*/
+            let addition = CGPoint(x: touchPos.x * touchArea.width, y: touchPos.y * touchArea.height)
+            print("Touches: \(CGPoint(x: addition.x + touchAreaPos.x, y: addition.y + touchAreaPos.y))")
+            return CGPoint(x: addition.x + touchAreaPos.x, y: addition.y + touchAreaPos.y)
+        }
+    } */
+#endif
+
