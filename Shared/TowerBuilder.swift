@@ -50,8 +50,9 @@ class TowerBuilder {
         if let tower = towerInCache {
             switch tower.type {
             case .Basic:
+                
                 // DEBUG Replace with meaningful selection of visual representation.
-                towerInCache?.visuals = MapBuilder.instance.defaultBuildingSet.tileGroups
+                towerInCache?.visuals = MapBuilder.instance.tileSets[.Buildings]!.tileGroups
             default:
                 print("ERROR @ TowerBuiler : addVisuals() : No matching type in switch found.")
             }
@@ -81,12 +82,12 @@ class TowerBuilder {
             radius = 100
         default:
             print("ERROR @ TowerBuiler : createRangeImage() : No matching type in switch found.")
-            radius = 50
+            radius = 80
         }
         
         let shape = SKShapeNode(circleOfRadius: radius)
         shape.fillColor = .white
-        shape.alpha = 0.5
+        shape.alpha = 0.2
         
         return shape
     }

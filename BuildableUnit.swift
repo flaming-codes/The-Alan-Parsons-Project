@@ -26,8 +26,10 @@ class BuildableUnit : Hashable {
     var column: Int
     var row: Int
     let category: BuildableUnitCategories
-    var constraints: [() -> (Bool)]?
+    var conditions: [() -> (Bool)]?
     var visuals: [SKTileGroup]?
+    
+    // MARK: - Methods.
     
     init(column: Int, row: Int, initalResourcesRequired: [Resources:Double], category: BuildableUnitCategories) {
         guard column >= 0 && row >= 0 else {
@@ -54,6 +56,19 @@ class BuildableUnit : Hashable {
         self.row = 0
         self.category = .Miscellaneous
         self.initalResourcesRequired = [Resources : Double]()
+    }
+    
+    func areConditionsViolated() -> Bool {
+        
+        if let conds = conditions {
+            for condition in conds {
+                if condition() {
+                    return true
+                }
+            }
+        }
+        
+        return false
     }
     
     static func == (lhs: BuildableUnit, rhs: BuildableUnit) -> Bool {

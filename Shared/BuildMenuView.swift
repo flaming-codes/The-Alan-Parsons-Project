@@ -12,7 +12,7 @@ class BuildMenuView: SKNode, BuildingCallback {
     
     // MARK: - Variables.
     
-    var buildings = [BuildableUnitCategories: [BuildableUnit: SKSpriteNode]]()
+    var buildings = [BuildableUnitCategories: BuildableUnit]()
     var currentlySelected: SKSpriteNode?
     
     // MARK: - Initializers.
@@ -29,12 +29,13 @@ class BuildMenuView: SKNode, BuildingCallback {
     
     func add(key: BuildableUnitCategories, value: BuildableUnit) {
         
-        var array = [BuildableUnit: SKSpriteNode]()
-        let sprite = makeNode(unit: value)
-        array.updateValue(sprite, forKey: value)
+        //var array = [BuildableUnit: SKSpriteNode]()
+        //let sprite = makeNode(unit: value)
+        //array.updateValue(sprite, forKey: value)
         
-        self.addChild(sprite)
-        buildings.updateValue(array, forKey: key)
+        //self.addChild(sprite)
+        addChild(SKSpriteNode(fileNamed: value.visuals?.first!.name ?? "Non-Buildable")!)
+        buildings.updateValue(value, forKey: key)
     }
     
     func select(key: BuildableUnitCategories, value: BuildableUnit) {
@@ -45,6 +46,9 @@ class BuildMenuView: SKNode, BuildingCallback {
         // ...
         
         // 2. Animate new selection.
+        //childNode(withName: value.visuals?.first!.name ?? "Non-Buildable")!.run(SKAction)
+        
+        /*
         for (_, array) in buildings {
             for unit in array.keys {
                 if unit === value {
@@ -53,7 +57,7 @@ class BuildMenuView: SKNode, BuildingCallback {
                     return
                 }
             }
-        }
+        }*/
         
         // If this point has been reached, no entity from the building-menu matches. Exit with error.
         print("ERROR @ BuildMenuView : select() : No stored unit matches the given one, it may have been delteted before.")

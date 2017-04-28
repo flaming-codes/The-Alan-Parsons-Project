@@ -10,83 +10,78 @@ import SpriteKit
 
 struct MapBuilder {
     
-    let defaultGroundSet: SKTileSet
-    let defaultBuildingSet: SKTileSet
-    let defaultDistrictSet: SKTileSet
-    let defaultInBuildModeSet: SKTileSet
+    // MARK: - Variables.
+    
+    var tileSets = [MapType : SKTileSet]()
+    var zPositions = [MapType : CGFloat]()
     
     let defaultColumns = 14
     let defaultRows = 14
-    
-    let zGround: CGFloat = 0
-    let zDistricts: CGFloat = 1
-    let zBuildings: CGFloat = 2
-    let zInBuildMode: CGFloat = 3
     
     static let instance: MapBuilder = {
         return MapBuilder()
     }()
     
     private init(){
-        defaultGroundSet = SKTileSet(named: "Ground Map")!
         
         // TODO Create tiles to initialize sets correctly.
-        defaultDistrictSet = SKTileSet(named: "Ground Map")!
-        defaultBuildingSet = SKTileSet(named: "Ground Map")!
-        defaultInBuildModeSet = SKTileSet(named: "Ground Map")!
+        tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .Ground)
+        tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .Buildings)
+        tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .District)
+        tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .InBuildMode)
+        
+        zPositions.updateValue(0, forKey: .Ground)
+        zPositions.updateValue(1, forKey: .Buildings)
+        zPositions.updateValue(2, forKey: .District)
+        zPositions.updateValue(3, forKey: .InBuildMode)
     }
     
-    func make(with tileSet: SKTileSet, columns: Int, rows: Int) -> SKTileMapNode {
-        let map = SKTileMapNode(
-            tileSet: tileSet,
-            columns: columns,
-            rows: rows,
-            tileSize: tileSet.defaultTileSize,
-            fillWith: tileSet.tileGroups.first!)
+    func make(with tileSet: SKTileSet, columns: Int, rows: Int, fill: Bool) -> SKTileMapNode {
+        var map: SKTileMapNode
+        
+        map = fill
+            ?
+                SKTileMapNode(
+                    tileSet: tileSet,
+                    columns: columns,
+                    rows: rows,
+                    tileSize: tileSet.defaultTileSize,
+                    fillWith: tileSet.tileGroups.first!)
+            :
+                SKTileMapNode(
+                    tileSet: tileSet,
+                    columns: columns,
+                    rows: rows,
+                    tileSize: tileSet.defaultTileSize)
         
         map.anchorPoint = CGPoint(x: 0, y: 0.5)
         return map
     }
     
-    func makeGround() -> SKTileMapNode {
-        let map = self.make(with: defaultGroundSet, columns: defaultColumns, rows: defaultRows)
-        map.zPosition = zGround
+    func make(type: MapType, fill: Bool) -> SKTileMapNode {
+        guard tileSets[type] != nil else {
+            print("ERROR @ MapBuilder : make() : The map \(type) has already been made.")
+            abort()
+        }
         
-        return map
-    }
-    
-    func makeBuldings() -> SKTileMapNode {
-        let map = self.make(with: defaultBuildingSet, columns: defaultColumns, rows: defaultRows)
-        map.zPosition = zBuildings
-        
-        return map
-    }
-    
-    func makeInBuildMode() -> SKTileMapNode {
-        let map = self.make(with: defaultInBuildModeSet, columns: defaultColumns, rows: defaultRows)
-        map.zPosition = zInBuildMode
-        
-        return map
-    }
-    
-    func makeDistricts() -> SKTileMapNode {
-        let map = self.make(with: defaultDistrictSet, columns: defaultColumns, rows: defaultRows)
-        map.zPosition = zDistricts
+        let map = self.make(with: tileSets[type]!, columns: defaultColumns, rows: defaultRows, fill: fill)
+        map.zPosition = zPositions[type]!
+        map.name = "\(type) map"
         
         return map
     }
     
     // Works! (Passes by reference)
-    func expand(map: SKTileMapNode) {
+    func expand(map: SKTileMapNode, type: MapType) {
         map.numberOfColumns += defaultColumns
     }
     
-    func expandWithFill(map: SKTileMapNode) {
+    func expandWithFill(map: SKTileMapNode, type: MapType) {
         let startColumn = map.numberOfColumns
         
-        self.expand(map: map)
+        self.expand(map: map, type: type)
         
-        let groups = defaultGroundSet.tileGroups
+        let groups = tileSets[type]!.tileGroups
         let groupsSize = UInt32(groups.count)
         
         for x in startColumn...startColumn + defaultColumns {
@@ -96,25 +91,5 @@ struct MapBuilder {
                 map.setTileGroup(groups[Int(arc4random_uniform(groupsSize))], forColumn: x, row: y)
             }
         }
-    }
-    
-    func updateTile(map: SKTileMapNode, point: CGPoint, type: MapManager.MapType, tile: SKTileGroup) -> Bool {
-        let column = map.tileColumnIndex(fromPosition: point)
-        let row = map.tileRowIndex(fromPosition: point)
-        
-        print("Update tile called.")
-        print("Columnn touched: \(column).")
-        print("Row touched: \(row).")
-        print("TileGroup: \(tile.name ?? "Tile to set has no name.")")
-        
-        switch type {
-        case .Ground:
-            map.setTileGroup(tile, forColumn: column, row: row)
-            return true
-            
-        default:
-            return false
-        }
-
     }
 }

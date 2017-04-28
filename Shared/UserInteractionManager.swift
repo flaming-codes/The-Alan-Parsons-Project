@@ -29,7 +29,7 @@ class UserInteractionManager {
     ///   - scene: The GameScene-object where the touch was registered.
     func checkInput(event: NSEvent, scene: GameScene) {
         
-        // Start checking exclusively for possible touches.
+        // Start checking for possible touches.
         if isInBuildMenuView(event: event, scene: scene) {}
         else if isInStateValuesView(event: event, scene: scene) {}
         else if isInMap(event: event, scene: scene) {}
@@ -90,35 +90,12 @@ class UserInteractionManager {
                 unit.column = c
                 unit.row = r
                 
-                if MapBuilder.instance.updateTile(
-                    map: map,
-                    point: point,
-                    type: .Ground,
-                    tile: unit.visuals![2]) {
-                    
-                    if let tower = unit as? Tower {
-                        MapManager.instance.towers.append(tower)
-                        let orgin = map.centerOfTile(atColumn: c, row: r)
-                        tower.rangeImage.position = orgin
-                        map.addChild(tower.rangeImage)
-                    }
-                    print("UpdateTile worked.")
-                }
+                MapManager.instance.add(building: unit, location: event.location(in: map))
             }
-            
-            /*
-            let tileGroup = MapBuilder.instance.defaultGroundSet.tileGroups[3]
-            if MapBuilder.instance.updateTile(
-                map: map,
-                point: point,
-                type: .Ground,
-                tile: tileGroup) {
-                
-                print("UpdateTile worked.")
-            }*/
             
             // Every operation regarding the selection should now be processed, so clear the cache.
             selection = nil
+            return true
             
         } else {
             print("No map touched.")

@@ -80,6 +80,9 @@
 		E9D506081EAA654D00AE6E26 /* MapBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D506071EAA654D00AE6E26 /* MapBuilder.swift */; };
 		E9D506091EAA654D00AE6E26 /* MapBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D506071EAA654D00AE6E26 /* MapBuilder.swift */; };
 		E9D5060A1EAA654D00AE6E26 /* MapBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D506071EAA654D00AE6E26 /* MapBuilder.swift */; };
+		E9DFAEC11EB3B4C700DE143D /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DFAEC01EB3B4C700DE143D /* MapType.swift */; };
+		E9DFAEC21EB3B4C700DE143D /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DFAEC01EB3B4C700DE143D /* MapType.swift */; };
+		E9DFAEC31EB3B4C700DE143D /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DFAEC01EB3B4C700DE143D /* MapType.swift */; };
 		E9E823A01E9BD2FD00ECA8E5 /* GroundTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = E9E8239F1E9BD2FD00ECA8E5 /* GroundTiles.sks */; };
 		E9E823A11E9BD2FD00ECA8E5 /* GroundTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = E9E8239F1E9BD2FD00ECA8E5 /* GroundTiles.sks */; };
 		E9E823A21E9BD2FD00ECA8E5 /* GroundTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = E9E8239F1E9BD2FD00ECA8E5 /* GroundTiles.sks */; };
@@ -130,6 +133,7 @@
 		E9D505FE1EA8FC7200AE6E26 /* StateValuesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateValuesView.swift; sourceTree = "<group>"; };
 		E9D506021EAA485A00AE6E26 /* BuildMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildMenuView.swift; sourceTree = "<group>"; };
 		E9D506071EAA654D00AE6E26 /* MapBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapBuilder.swift; sourceTree = "<group>"; };
+		E9DFAEC01EB3B4C700DE143D /* MapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		E9E8239F1E9BD2FD00ECA8E5 /* GroundTiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GroundTiles.sks; sourceTree = "<group>"; };
 		E9E823F41E9D7C9A00ECA8E5 /* Mapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapping.swift; sourceTree = "<group>"; };
 		E9E824051E9E803000ECA8E5 /* StringError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
@@ -316,6 +320,7 @@
 				E9E824051E9E803000ECA8E5 /* StringError.swift */,
 				E97D6D051EA3A57700B8AA87 /* Resources.swift */,
 				E97D6D0D1EA3C4BB00B8AA87 /* BuildableUnitCategories.swift */,
+				E9DFAEC01EB3B4C700DE143D /* MapType.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -482,6 +487,7 @@
 				E9972A1D1EB37E6E00E66CE5 /* TowerBuilder.swift in Sources */,
 				E97D6D0A1EA3AE6F00B8AA87 /* Monster.swift in Sources */,
 				E9E823F51E9D7C9A00ECA8E5 /* Mapping.swift in Sources */,
+				E9DFAEC11EB3B4C700DE143D /* MapType.swift in Sources */,
 				E9746A4B1E9BA5AC003D64E6 /* GameViewController.swift in Sources */,
 				E9E824061E9E803000ECA8E5 /* StringError.swift in Sources */,
 				E9746A491E9BA5AC003D64E6 /* AppDelegate.swift in Sources */,
@@ -511,6 +517,7 @@
 				E97D6D0F1EA3C4BB00B8AA87 /* BuildableUnitCategories.swift in Sources */,
 				E97D6D071EA3A57700B8AA87 /* Resources.swift in Sources */,
 				E97D6D131EA3D47600B8AA87 /* UserInteractionManager.swift in Sources */,
+				E9DFAEC21EB3B4C700DE143D /* MapType.swift in Sources */,
 				E9746A5C1E9BA5AD003D64E6 /* GameViewController.swift in Sources */,
 				E97D6CEF1EA2792900B8AA87 /* StateValuesManager.swift in Sources */,
 				E97D6CFF1EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
@@ -540,6 +547,7 @@
 				E97D6D101EA3C4BB00B8AA87 /* BuildableUnitCategories.swift in Sources */,
 				E97D6D081EA3A57700B8AA87 /* Resources.swift in Sources */,
 				E97D6D141EA3D47600B8AA87 /* UserInteractionManager.swift in Sources */,
+				E9DFAEC31EB3B4C700DE143D /* MapType.swift in Sources */,
 				E9746A6A1E9BA5AD003D64E6 /* GameViewController.swift in Sources */,
 				E97D6CF01EA2792900B8AA87 /* StateValuesManager.swift in Sources */,
 				E97D6D001EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,

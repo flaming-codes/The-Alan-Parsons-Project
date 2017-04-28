@@ -52,6 +52,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //let groundMap = MapManager.instance.maps[.Ground]
         MapManager.instance.maps[.Ground]?.position = CGPoint(x: 50, y: self.frame.midY)
         addChild(MapManager.instance.maps[.Ground]!)
+        //MapManager.instance.maps[.Ground]!.isHidden = true
+        
+        MapManager.instance.maps[MapType.Buildings]?.position = CGPoint(x: 50, y: self.frame.midY)
+        addChild(MapManager.instance.maps[.Buildings]!)
+        //MapManager.instance.maps[.Buildings]!.isHidden = true
+        //MapManager.instance.maps[.Buildings]!.fill(with: MapBuilder.instance.tileSets[.Ground]!.tileGroups[3])
+        
+        MapManager.instance.maps[.District]?.position = CGPoint(x: 50, y: self.frame.midY)
+        addChild(MapManager.instance.maps[.District]!)
+        MapManager.instance.maps[.District]!.isHidden = true
+        
+        MapManager.instance.maps[.InBuildMode]?.position = CGPoint(x: 50, y: self.frame.midY)
+        addChild(MapManager.instance.maps[.InBuildMode]!)
+        MapManager.instance.maps[.InBuildMode]!.isHidden = true
         
         // DELETE
         //let shape = SKSpriteNode(imageNamed: "demoCircle")
@@ -251,6 +265,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             UserInteractionManager.instance.checkInput(event: event, scene: self)
  
+            //MapManager.instance.maps[.Ground]!.setTileGroup(MapBuilder.instance.tileSets[.Buildings]!.tileGroups[3], forColumn: 0, row: 0)
+            
             /*
             let map = childNode(withName: "Tile Map Node") as! SKTileMapNode
             let point = event.location(in: map)
