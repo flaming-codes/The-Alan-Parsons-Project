@@ -14,10 +14,8 @@ class Building : BuildableUnit {
     
     let name: String!
     let range: CGFloat
-    let rangeImage: SKShapeNode!
-    
-    // TODO Really necessary?
-    let originOfRange: CGPoint!
+    let rangeImage: SKShapeNode!    
+    var originOfRange: CGPoint
     let level: Int
     
     override var hashValue: Int {

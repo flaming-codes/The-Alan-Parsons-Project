@@ -99,6 +99,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         //debug.checkIntersection()
+        /*
+        if !MapManager.instance.towers.isEmpty {
+            for tower in MapManager.instance.towers {
+                let range = tower.rangeImage
+                if sprite.intersects(range!) {
+                    print("They intersect!")
+                    count += 1
+                    print(count)
+                }
+            }
+        } else {
+            print("No intersection.")
+        }*/
     }
     
     // MARK: - Helpers.
@@ -226,8 +239,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 #if os(OSX)
     // Mouse-based event handling
     extension GameScene {
-
+        
         override func mouseDown(with event: NSEvent) {
+            /*
+            if count == 0 {
+                count += 1
+                
+                sprite = childNode(withName: "sprite") as! SKSpriteNode
+                sprite.run(SKAction.moveBy(x: -2000, y: 0, duration: 15))
+            }*/
+            
             UserInteractionManager.instance.checkInput(event: event, scene: self)
  
             /*
@@ -279,38 +300,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    /*
-    extension NSTouch {
-        /**
-         * Returns the relative position of the touch to the view
-         * NOTE: the normalizedTouch is the relative location on the trackpad. values range from 0-1. And are y-flipped
-         * TODO: debug if the touch area is working with a rect with a green stroke
-         */
-        func pos(_ view:NSView) -> CGPoint{
-            let w = view.frame.size.width
-            let h = view.frame.size.height
-            let touchPos:CGPoint = CGPoint(x: self.normalizedPosition.x, y: 1 + (self.normalizedPosition.y * -1))/*flip the touch coordinates*/
-            
-            let deviceSize:CGSize = self.deviceSize
-            let deviceRatio:CGFloat = deviceSize.width/deviceSize.height/*find the ratio of the device*/
-            let viewRatio:CGFloat = w/h
-            var touchArea:CGSize = CGSize(width: w, height: h)
-
-            /*Uniform-shrink the device to the view frame*/
-            if(deviceRatio > viewRatio){/*device is wider than view*/
-                touchArea.height = h/viewRatio
-                touchArea.width = w
-            }else if(deviceRatio < viewRatio){/*view is wider than device*/
-                touchArea.height = h
-                touchArea.width = w/deviceRatio
-            }/*else ratios are the same*/
-            let touchAreaPos:CGPoint = CGPoint(
-                x: (w - touchArea.width)/2,
-                y: (h - touchArea.height)/2)/*we center the touchArea to the View*/
-            let addition = CGPoint(x: touchPos.x * touchArea.width, y: touchPos.y * touchArea.height)
-            print("Touches: \(CGPoint(x: addition.x + touchAreaPos.x, y: addition.y + touchAreaPos.y))")
-            return CGPoint(x: addition.x + touchAreaPos.x, y: addition.y + touchAreaPos.y)
-        }
-    } */
 #endif
 

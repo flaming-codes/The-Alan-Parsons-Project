@@ -19,4 +19,7 @@ class Monster : Hashable {
     static func == (lhs: Monster, rhs: Monster) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
+    
+    // REMINDER
+    // Monster has to use a zPosition above all or at least above buildings + ranges.
 }

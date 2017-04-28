@@ -96,6 +96,12 @@ class UserInteractionManager {
                     type: .Ground,
                     tile: unit.visuals![2]) {
                     
+                    if let tower = unit as? Tower {
+                        MapManager.instance.towers.append(tower)
+                        let orgin = map.centerOfTile(atColumn: c, row: r)
+                        tower.rangeImage.position = orgin
+                        map.addChild(tower.rangeImage)
+                    }
                     print("UpdateTile worked.")
                 }
             }
@@ -110,6 +116,10 @@ class UserInteractionManager {
                 
                 print("UpdateTile worked.")
             }*/
+            
+            // Every operation regarding the selection should now be processed, so clear the cache.
+            selection = nil
+            
         } else {
             print("No map touched.")
         }

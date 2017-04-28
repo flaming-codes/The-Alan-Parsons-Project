@@ -27,19 +27,23 @@ class TowerBuilder {
     
     private init() {}
     
-    func start(type: TowerType) -> TowerBuilder {
+    func start(type: TowerType, originOfRange: CGPoint) -> TowerBuilder {
         TowerBuilder.instance.towerInCache = Tower(
             column: 0,
             row: 0,
             type: type,
             name: createName(),
             rangeImage: createRangeImage(type: type),
-            originOfRange: CGPoint(x: 0, y: 0),
+            originOfRange: originOfRange,
             level: 1,
             coolDownTimeInMillis: 1000,
             initalResourcesRequired: [Resources.Coal:100])
         
         return self
+    }
+    
+    func start(type: TowerType) -> TowerBuilder {
+        return start(type: type, originOfRange: CGPoint(x: 0, y: 0))
     }
     
     func addVisuals() -> TowerBuilder {
@@ -74,14 +78,14 @@ class TowerBuilder {
         
         switch type {
         case .Basic:
-            radius = 30
+            radius = 100
         default:
             print("ERROR @ TowerBuiler : createRangeImage() : No matching type in switch found.")
             radius = 50
         }
         
         let shape = SKShapeNode(circleOfRadius: radius)
-        shape.fillColor = .blue
+        shape.fillColor = .white
         shape.alpha = 0.5
         
         return shape
