@@ -11,7 +11,6 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var debugMan: DebugMan = DebugMan()
     var camRef = SKNode()
     
     /// The current view on the scene.
@@ -31,7 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // Set the scale mode to scale to fit the window
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .aspectFit
         
         return scene
     }
@@ -50,9 +49,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // DEBUG MAP CREATION
         //let map = MapBuilder.instance.makeGround()
-        let groundMap = MapManager.instance.maps[.Ground]
-        groundMap?.position = CGPoint(x: 0, y: self.frame.midY)
-        addChild(groundMap!)
+        //let groundMap = MapManager.instance.maps[.Ground]
+        MapManager.instance.maps[.Ground]?.position = CGPoint(x: 50, y: self.frame.midY)
+        addChild(MapManager.instance.maps[.Ground]!)
         
         // DELETE
         //let shape = SKSpriteNode(imageNamed: "demoCircle")
@@ -61,8 +60,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add state values view.
         //let state = StateValuesView()
         self.camera?.addChild(stateValuesView)
+        //self.camera?.addChild(StateValuesView.instance)
+        
         //print(self.camera?.frame)
         stateValuesView.position = CGPoint(x: 0, y: camMenu.frame.maxY - 50)
+        //StateValuesView.instance.position = CGPoint(x: 0, y: camMenu.frame.maxY - 50)
         
         // Register camera reference (for moving)
         camRef = childNode(withName: "camReference")!
@@ -73,6 +75,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Register menu bar (ONLY 1 TILE FOR NOW - DEBUG).
         self.buildMenu = self.camera?.childNode(withName: "forestTower") as! SKSpriteNode
+        //let c = SKConstraint.positionX(SKRange.init(constantValue: 0), y: SKRange.init(constantValue: -s447))
+        //buildMenu.constraints = [ c ]
         
         // Gesture-recognizers.
         /*
@@ -85,6 +89,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Views should be initalized now, let's hook them up to some listeners.
         hookUpCallbacks()
+    }
+    
+    override func didChangeSize(_ oldSize: CGSize) {
+        print("Did change size.")
+        buildMenu.position = CGPoint(x: self.size.width / 2, y: 0)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -115,6 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     fileprivate func hookUpCallbacks() {
+        //StateValuesManager.sharedInstance.resourceCallbackReceiver = StateValuesView.instance
         StateValuesManager.sharedInstance.resourceCallbackReceiver = stateValuesView
         //StateValuesManager.sharedInstance.fireCallback(key: <#T##Resources#>, val: <#T##Double#>)
     }
@@ -139,6 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Delegte is called when a specific contact happens, its counterpart is called
     //  when this specific contact ends == per contact one 'didBegin' & 'didEnd'
+    /*
     func didBegin(_ contact: SKPhysicsContact) {
         
         // 1
@@ -176,11 +187,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    @available(*, deprecated)
     func didEnd(_ contact: SKPhysicsContact) {
         if contact.bodyA.node?.name == "circle2" || contact.bodyB.node?.name == "circle2" {
             print("The moving circle has left the intersection are with the tower.")
         }
     }
+    */
 }
 
 #if os(iOS) || os(tvOS)
@@ -215,9 +228,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     extension GameScene {
 
         override func mouseDown(with event: NSEvent) {
-            print("Mouse down event called.")
-            //MapManager.sharedInstance.map.color = SKColor.black
-            //MapManager.sharedInstance.map.removeFromParent()
+            UserInteractionManager.instance.checkInput(event: event, scene: self)
+ 
+            /*
+            let map = childNode(withName: "Tile Map Node") as! SKTileMapNode
+            let point = event.location(in: map)
+            let c = map.tileColumnIndex(fromPosition: point)
+            let r = map.tileRowIndex(fromPosition: point)
+             
+            */
+            /*
+            let map = MapManager.instance.maps[.Ground]!
+            let point = event.location(in: map)
+            let c = map.tileColumnIndex(fromPosition: point)
+            let r = map.tileRowIndex(fromPosition: point)
+            
+            print("Columnn touched: \(c).")
+            print("Row touched: \(r).")
+            print("Number of rows: \(map.numberOfRows).")
+            print("Number of columns: \(map.numberOfColumns).")
+            */
         }
         
         override func mouseDragged(with event: NSEvent) {

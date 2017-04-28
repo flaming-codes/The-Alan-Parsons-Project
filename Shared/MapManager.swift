@@ -39,4 +39,7 @@ class MapManager {
         maps.updateValue(MapBuilder.instance.makeGround(), forKey: .Ground)
     }
     
+    func expandGroundMap() {
+        MapBuilder.instance.expandWithFill(map: maps[.Ground]!)
+    }
 }

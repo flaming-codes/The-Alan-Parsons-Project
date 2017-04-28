@@ -30,11 +30,11 @@ enum BuildableUnitCategories : Hashable, Mapping {
         
         switch a {
         case .Economy:
-            return SKSpriteNode(imageNamed: "Farm_Hex")
+            return SKSpriteNode(imageNamed: "Grass")
         case .Combat:
-            return SKSpriteNode(imageNamed: "Grass_Hex")
+            return SKSpriteNode(imageNamed: "Mountain")
         case .Miscellaneous:
-            return SKSpriteNode(imageNamed: "Mountain_Hex")
+            return SKSpriteNode(imageNamed: "Lake")
         }
     }
 }

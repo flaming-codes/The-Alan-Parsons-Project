@@ -10,7 +10,7 @@ import SpriteKit
 
 class BuildMenuManager {
     
-    let sharedInstance: BuildMenuManager = {
+    static let sharedInstance: BuildMenuManager = {
         let instance = BuildMenuManager()
         // Some setup-code if nedded.
         return instance

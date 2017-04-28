@@ -6,7 +6,7 @@
 //  Copyright © 2017 Thomas Schönmann. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
 class BuildableUnit : Hashable {
     
@@ -20,19 +20,22 @@ class BuildableUnit : Hashable {
         }
     }
 
-    let initalResourcesRequired: [Resources : Double]
-    var currentResourcesRequired = [Resources : Double]()
-    let column: Int
-    let row: Int
+    let id: Int
+    let initalResourcesRequired: [Resources:Double]
+    var currentResourcesRequired = [Resources:Double]()
+    var column: Int
+    var row: Int
     let category: BuildableUnitCategories
-    //var visual: VisualRepresentation?
+    var constraints: [() -> (Bool)]?
+    var visuals: [SKTileGroup]?
     
-    init(column: Int, row: Int, initalResourcesRequired: [Resources : Double], category: BuildableUnitCategories) {
+    init(column: Int, row: Int, initalResourcesRequired: [Resources:Double], category: BuildableUnitCategories) {
         guard column >= 0 && row >= 0 else {
             print("ERROR @ Building : init() : One or more arguments are invalid.")
             abort()
         }
         
+        self.id = IDGenerator.instance.createID()
         self.column = column
         self.row = row
         self.category = category
@@ -43,9 +46,12 @@ class BuildableUnit : Hashable {
         self.currentResourcesRequired = initalResourcesRequired
     }
     
+    // TODO Change or delete if necessary.
+    // Initializer for non-functional buildings, mainly used in the build menu.
     init() {
-        self.column = -1
-        self.row = -1
+        self.id = -1
+        self.column = 0
+        self.row = 0
         self.category = .Miscellaneous
         self.initalResourcesRequired = [Resources : Double]()
     }

@@ -11,6 +11,7 @@ import SpriteKit
 class StateValuesView: SKNode, ResourceCallback {
 
     // MARK: - Variables.
+    
     var labels = [Resources: SKLabelNode]()
     
     // MARK: Initializers.

@@ -10,13 +10,15 @@ import SpriteKit
 
 class Tower : Building {
     
-    var monstersInRangeQueue = [Monster]()
     let coolDownTimeInMillis: Int!
+    let type: TowerBuilder.TowerType
+    var isFireable = true
     
-    init(column: Int, row: Int, name: String, range: Int, rangeImage: SKShapeNode, originOfRange: CGPoint, level: Int, coolDownTimeInMillis: Int, initalResourcesRequired: [Resources : Double]) {
+    init(column: Int, row: Int, type: TowerBuilder.TowerType, name: String, rangeImage: SKShapeNode, originOfRange: CGPoint, level: Int, coolDownTimeInMillis: Int, initalResourcesRequired: [Resources : Double]) {
         
         self.coolDownTimeInMillis = coolDownTimeInMillis
+        self.type = type
         
-        super.init(column: column, row: row, name: name, category: .Combat, range: range, rangeImage: rangeImage, originOfRange: originOfRange, level: level, initalResourcesRequired: initalResourcesRequired)
+        super.init(column: column, row: row, name: name, category: .Combat, rangeImage: rangeImage, originOfRange: originOfRange, level: level, initalResourcesRequired: initalResourcesRequired)
     }
 }

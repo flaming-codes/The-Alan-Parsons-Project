@@ -13,7 +13,7 @@ class Building : BuildableUnit {
     // MARK: - Variables.
     
     let name: String!
-    let range: Int!
+    let range: CGFloat
     let rangeImage: SKShapeNode!
     
     // TODO Really necessary?
@@ -26,14 +26,14 @@ class Building : BuildableUnit {
         }
     }
     
-    init(column: Int, row: Int, name: String, category: BuildableUnitCategories, range: Int, rangeImage: SKShapeNode, originOfRange: CGPoint, level: Int, initalResourcesRequired: [Resources : Double]) {
+    init(column: Int, row: Int, name: String, category: BuildableUnitCategories, rangeImage: SKShapeNode, originOfRange: CGPoint, level: Int, initalResourcesRequired: [Resources : Double]) {
         guard !name.isEmpty && level >= 0 else {
             print("ERROR @ Building : init() : name isn't allowed to be empty.")
             abort()
         }
         
         self.name = name
-        self.range = range
+        self.range = rangeImage.frame.height / 2
         self.rangeImage = rangeImage
         self.originOfRange = originOfRange
         self.level = level
