@@ -106,27 +106,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.gravity = CGVector.zero
         physicsWorld.contactDelegate = self
         
-        // DELETE
-        
-        let map = MapManager.instance.maps[.Buildings]!
-        var targetArea = [CGPoint]()
-        for c in 0...6 {
-            targetArea.append(CGPoint(x: c, y: 6))
-        }
-        
+        // DEBUG - WORKS - DELETE AFTER INTEGRATION WITH MAPBUILDER
+        let map = MapManager.instance.maps[.Ground]!
         let waypoints = WayBuilder.instance
-            .defineAreaBounds(lowerLeftIncl: CGPoint(x: 0, y: 0), upperRightIncl: CGPoint(x: 6, y: 6))
-            .defineTargetBounds(targetArea: targetArea)
-            .makeSegment(startingPoint: CGPoint(x: 3, y: 3))
+            .make(segmentsToProcess: 4)
         
         for point in waypoints {
             print("Point to draw: \(point).")
             map.setTileGroup(MapBuilder.instance.tileSets[.Buildings]?.tileGroups[3], forColumn: Int(point.x), row: Int(point.y))
         }
         
+        let reversedPoints = waypoints.reversed()
+        
+        var positions = [CGPoint]()
+        for point in reversedPoints {
+            positions.append(map.centerOfTile(atColumn: Int(point.x), row: Int(point.y)))
+        }
+        
+        let monster = childNode(withName: "MonsterBoss") as! SKSpriteNode
+        monster.removeFromParent()
+        map.addChild(monster)
+        monster.position = positions.first!
+        
+        var moves = [SKAction]()
+        
+        for p in positions {
+            moves.append(SKAction.move(to: p, duration: 0.2))
+        }
+        
+        let sequence = SKAction.sequence(moves)
+        monster.run(sequence)
+        
         // Views should be initalized now, let's hook them up to some listeners.
         hookUpCallbacks()
-        
     }
     
     

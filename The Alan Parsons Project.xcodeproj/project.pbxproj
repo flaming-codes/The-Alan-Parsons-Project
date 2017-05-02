@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E95C73D91EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
+		E95C73DA1EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
+		E95C73DB1EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
 		E9746A491E9BA5AC003D64E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9746A481E9BA5AC003D64E6 /* AppDelegate.swift */; };
 		E9746A4B1E9BA5AC003D64E6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9746A4A1E9BA5AC003D64E6 /* GameViewController.swift */; };
 		E9746A4E1E9BA5AC003D64E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9746A4C1E9BA5AC003D64E6 /* Main.storyboard */; };
@@ -98,6 +101,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E95C73D81EB94ED700D03F60 /* TerrainType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerrainType.swift; sourceTree = "<group>"; };
 		E9746A3D1E9BA5AC003D64E6 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		E9746A3E1E9BA5AC003D64E6 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		E9746A3F1E9BA5AC003D64E6 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -326,6 +330,7 @@
 				E97D6D051EA3A57700B8AA87 /* Resources.swift */,
 				E97D6D0D1EA3C4BB00B8AA87 /* BuildableUnitCategories.swift */,
 				E9DFAEC01EB3B4C700DE143D /* MapType.swift */,
+				E95C73D81EB94ED700D03F60 /* TerrainType.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -481,6 +486,7 @@
 				E9995C431EB23AE80092A77F /* IDGenerator.swift in Sources */,
 				E9E83E801EB7830600D945B0 /* WayBuilder.swift in Sources */,
 				E97D6CFE1EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
+				E95C73D91EB94ED700D03F60 /* TerrainType.swift in Sources */,
 				E97D6D021EA2849400B8AA87 /* BuildMenuManager.swift in Sources */,
 				E9D506031EAA485A00AE6E26 /* BuildMenuView.swift in Sources */,
 				E9746A751E9BA5AD003D64E6 /* GameScene.swift in Sources */,
@@ -512,6 +518,7 @@
 				E9995C441EB23CC40092A77F /* IDGenerator.swift in Sources */,
 				E9E83E811EB7830600D945B0 /* WayBuilder.swift in Sources */,
 				E97D6D031EA2849400B8AA87 /* BuildMenuManager.swift in Sources */,
+				E95C73DA1EB94ED700D03F60 /* TerrainType.swift in Sources */,
 				E97D6CEB1EA278E100B8AA87 /* MapManager.swift in Sources */,
 				E9D506041EAA485A00AE6E26 /* BuildMenuView.swift in Sources */,
 				E9746A761E9BA5AD003D64E6 /* GameScene.swift in Sources */,
@@ -543,6 +550,7 @@
 				E9995C451EB23CC40092A77F /* IDGenerator.swift in Sources */,
 				E9E83E821EB7830600D945B0 /* WayBuilder.swift in Sources */,
 				E97D6D041EA2849400B8AA87 /* BuildMenuManager.swift in Sources */,
+				E95C73DB1EB94ED700D03F60 /* TerrainType.swift in Sources */,
 				E97D6CEC1EA278E100B8AA87 /* MapManager.swift in Sources */,
 				E9D506051EAA485A00AE6E26 /* BuildMenuView.swift in Sources */,
 				E9746A771E9BA5AD003D64E6 /* GameScene.swift in Sources */,

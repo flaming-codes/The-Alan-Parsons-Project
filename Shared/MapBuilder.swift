@@ -118,7 +118,7 @@ struct MapBuilder {
     }
 
     // Currently only works for up/down/right targetLines.
-    fileprivate func createTargetLine(districtIndex: Int) -> (targetLine: [(row: Int, column: Int)], direction: TargetLineDirection) {
+    func createTargetLine(districtIndex: Int) -> (targetLine: [(row: Int, column: Int)], direction: TargetLineDirection) {
         var targetLine = [(row: Int, column: Int)]()
         var direction: TargetLineDirection
         let districtsPerHeight = defaultRows / defaultDistrictHeightInRows
