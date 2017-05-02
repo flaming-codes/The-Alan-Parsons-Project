@@ -65,4 +65,15 @@ class MapManager {
         // TODO
         // Insert additional checks for other building-categories.
     }
+    
+    func toggleRadiusVisability(isVisible: Bool) {
+        print("Radius visability toggled with: \(isVisible).")
+        
+        // TODO
+        // May be changed to alpha instead of .isHidden,
+        //  intersection-function may not work otherwise.
+        for tower in towers {
+            tower.rangeImage.isHidden = !isVisible
+        }
+    }
 }

@@ -11,6 +11,11 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    // DELETE
+    var waypoints: [(row: Int, column: Int)]?
+    var lowerLeftCorner: (row: Int, column: Int)?
+    var upperRightCorner: (row: Int, column: Int)?
+    
     var camRef = SKNode()
     
     /// The current view on the scene.
@@ -94,16 +99,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Gesture-recognizers.
         /*
-        let gestureRecognizer = NSPanGestureRecognizer(target: self, action: #selector(GameScene.handlePanFrom))
-        gestureRecognizer.delegate = self as? NSGestureRecognizerDelegate
-        self.view!.addGestureRecognizer(gestureRecognizer)
-        */
+         let gestureRecognizer = NSPanGestureRecognizer(target: self, action: #selector(GameScene.handlePanFrom))
+         gestureRecognizer.delegate = self as? NSGestureRecognizerDelegate
+         self.view!.addGestureRecognizer(gestureRecognizer)
+         */
         physicsWorld.gravity = CGVector.zero
         physicsWorld.contactDelegate = self
         
+        // DELETE
+        
+        let map = MapManager.instance.maps[.Buildings]!
+        var targetArea = [CGPoint]()
+        for c in 0...6 {
+            targetArea.append(CGPoint(x: c, y: 6))
+        }
+        
+        let waypoints = WayBuilder.instance
+            .defineAreaBounds(lowerLeftIncl: CGPoint(x: 0, y: 0), upperRightIncl: CGPoint(x: 6, y: 6))
+            .defineTargetBounds(targetArea: targetArea)
+            .makeSegment(startingPoint: CGPoint(x: 3, y: 3))
+        
+        for point in waypoints {
+            print("Point to draw: \(point).")
+            map.setTileGroup(MapBuilder.instance.tileSets[.Buildings]?.tileGroups[3], forColumn: Int(point.x), row: Int(point.y))
+        }
+        
         // Views should be initalized now, let's hook them up to some listeners.
         hookUpCallbacks()
+        
     }
+    
+    
+    
+    
+    
+    
     
     override func didChangeSize(_ oldSize: CGSize) {
         print("Did change size.")
@@ -114,46 +144,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Called before each frame is rendered
         //debug.checkIntersection()
         /*
-        if !MapManager.instance.towers.isEmpty {
-            for tower in MapManager.instance.towers {
-                let range = tower.rangeImage
-                if sprite.intersects(range!) {
-                    print("They intersect!")
-                    count += 1
-                    print(count)
-                }
-            }
-        } else {
-            print("No intersection.")
-        }*/
+         if !MapManager.instance.towers.isEmpty {
+         for tower in MapManager.instance.towers {
+         let range = tower.rangeImage
+         if sprite.intersects(range!) {
+         print("They intersect!")
+         count += 1
+         print(count)
+         }
+         }
+         } else {
+         print("No intersection.")
+         }*/
     }
     
     // MARK: - Helpers.
     
     func setUpScene() {
         
-        // Observe whenever a resource value has changed.
-        //StateValuesManager.sharedInstance.addObserver(self, forKeyPath: "resourcesChanged", options: NSKeyValueObservingOptions(), context: nil)
-        
-        //StateValuesManager.sharedInstance.callBackReceiver = self
-        
-        
-        //MapManager.sharedInstance.map = childNode(withName: "GroundTiles") as! SKTileMapNode
         print("Coal: \(StateValuesManager.sharedInstance.getValue(type: .Coal) ?? 0.0)")
         print("Stone: \(StateValuesManager.sharedInstance.getValue(type: .Stone) ?? 0.0)")
         print("Gold: \(StateValuesManager.sharedInstance.getValue(type: .Gold) ?? 0.0)")
         
-        // Demo chaning a val.
-        StateValuesManager.sharedInstance.changeResourceValueTo(val: 200.0, type: .Coal)
-        
-        //debugMan = DebugMan(scene: self)
-        //debugMan.registerCirclesAndMove()
+        // Demo changing a val.
+        //StateValuesManager.sharedInstance.changeResourceValueTo(val: 200.0, type: .Coal)
     }
     
     fileprivate func hookUpCallbacks() {
-        //StateValuesManager.sharedInstance.resourceCallbackReceiver = StateValuesView.instance
         StateValuesManager.sharedInstance.resourceCallbackReceiver = stateValuesView
-        //StateValuesManager.sharedInstance.fireCallback(key: <#T##Resources#>, val: <#T##Double#>)
     }
     
     // MARK: - Gesture-recognizers.
@@ -162,7 +180,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Panning detected, translation: \(recognizer.translation(in: self.view)).")
         
         //recognizer.state == .
-                
+        
         let xOffset = recognizer.translation(in: self.view).x
         let yOffset = recognizer.translation(in: self.view).y
         
@@ -171,56 +189,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         camRef.position = CGPoint(x: xNow - xOffset, y: yNow - yOffset)
     }
-    
-    // MARK: - SKPhysics' delegate methods.
-    
-    // Delegte is called when a specific contact happens, its counterpart is called
-    //  when this specific contact ends == per contact one 'didBegin' & 'didEnd'
-    /*
-    func didBegin(_ contact: SKPhysicsContact) {
-        
-        // 1
-        var firstBody: SKPhysicsBody
-        var secondBody: SKPhysicsBody
-        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-            firstBody = contact.bodyA
-            secondBody = contact.bodyB
-        } else {
-            firstBody = contact.bodyB
-            secondBody = contact.bodyA
-        }
-        
-        if firstBody.node?.name == "circle1" && secondBody.node?.name == "circle2" {
-            print("First contact happend at circle1.")
-        }
-        
-        if firstBody.node?.name == "circle2" && secondBody.node?.name == "circle1" {
-            print("First contact happend at circle2.")
-        }
-        
-        // 2
-        if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
-            (secondBody.categoryBitMask & PhysicsCategory.Tower != 0)) {
-            //if let monster = firstBody.node as? SKSpriteNode, let projectile = secondBody.node as? SKSpriteNode {
-            //projectileDidCollideWithMonster(projectile: projectile, monster: monster)
-            print("They collided!")
-            
-            let shockwave = SKShapeNode(circleOfRadius: 5)
-            shockwave.zPosition = 1
-            shockwave.position = contact.contactPoint
-            addChild(shockwave)
-            shockwave.run(debugMan.createShockWave())
-        }
-        
-    }
-    
-    @available(*, deprecated)
-    func didEnd(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name == "circle2" || contact.bodyB.node?.name == "circle2" {
-            print("The moving circle has left the intersection are with the tower.")
-        }
-    }
-    */
 }
 
 #if os(iOS) || os(tvOS)
@@ -256,35 +224,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         override func mouseDown(with event: NSEvent) {
             /*
-            if count == 0 {
-                count += 1
-                
-                sprite = childNode(withName: "sprite") as! SKSpriteNode
-                sprite.run(SKAction.moveBy(x: -2000, y: 0, duration: 15))
-            }*/
+             if count == 0 {
+             count += 1
+             
+             sprite = childNode(withName: "sprite") as! SKSpriteNode
+             sprite.run(SKAction.moveBy(x: -2000, y: 0, duration: 15))
+             }*/
             
             UserInteractionManager.instance.checkInput(event: event, scene: self)
- 
+            
             //MapManager.instance.maps[.Ground]!.setTileGroup(MapBuilder.instance.tileSets[.Buildings]!.tileGroups[3], forColumn: 0, row: 0)
             
             /*
-            let map = childNode(withName: "Tile Map Node") as! SKTileMapNode
-            let point = event.location(in: map)
-            let c = map.tileColumnIndex(fromPosition: point)
-            let r = map.tileRowIndex(fromPosition: point)
+             let map = childNode(withName: "Tile Map Node") as! SKTileMapNode
+             let point = event.location(in: map)
+             let c = map.tileColumnIndex(fromPosition: point)
+             let r = map.tileRowIndex(fromPosition: point)
              
-            */
+             */
             /*
-            let map = MapManager.instance.maps[.Ground]!
-            let point = event.location(in: map)
-            let c = map.tileColumnIndex(fromPosition: point)
-            let r = map.tileRowIndex(fromPosition: point)
-            
-            print("Columnn touched: \(c).")
-            print("Row touched: \(r).")
-            print("Number of rows: \(map.numberOfRows).")
-            print("Number of columns: \(map.numberOfColumns).")
-            */
+             let map = MapManager.instance.maps[.Ground]!
+             let point = event.location(in: map)
+             let c = map.tileColumnIndex(fromPosition: point)
+             let r = map.tileRowIndex(fromPosition: point)
+             
+             print("Columnn touched: \(c).")
+             print("Row touched: \(r).")
+             print("Number of rows: \(map.numberOfRows).")
+             print("Number of columns: \(map.numberOfColumns).")
+             */
         }
         
         override func mouseDragged(with event: NSEvent) {

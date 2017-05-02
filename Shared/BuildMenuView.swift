@@ -13,7 +13,7 @@ class BuildMenuView: SKNode, BuildingCallback {
     // MARK: - Variables.
     
     var buildings = [BuildableUnitCategories: BuildableUnit]()
-    var currentlySelected: SKSpriteNode?
+    var currentlySelected: BuildableUnit?
     
     // MARK: - Initializers.
     

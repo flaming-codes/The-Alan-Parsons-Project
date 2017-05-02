@@ -76,3 +76,53 @@
  }
  }
  */
+
+// MARK: - SKPhysics' delegate methods.
+
+// Delegte is called when a specific contact happens, its counterpart is called
+//  when this specific contact ends == per contact one 'didBegin' & 'didEnd'
+/*
+ func didBegin(_ contact: SKPhysicsContact) {
+ 
+ // 1
+ var firstBody: SKPhysicsBody
+ var secondBody: SKPhysicsBody
+ if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+ firstBody = contact.bodyA
+ secondBody = contact.bodyB
+ } else {
+ firstBody = contact.bodyB
+ secondBody = contact.bodyA
+ }
+ 
+ if firstBody.node?.name == "circle1" && secondBody.node?.name == "circle2" {
+ print("First contact happend at circle1.")
+ }
+ 
+ if firstBody.node?.name == "circle2" && secondBody.node?.name == "circle1" {
+ print("First contact happend at circle2.")
+ }
+ 
+ // 2
+ if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
+ (secondBody.categoryBitMask & PhysicsCategory.Tower != 0)) {
+ //if let monster = firstBody.node as? SKSpriteNode, let projectile = secondBody.node as? SKSpriteNode {
+ //projectileDidCollideWithMonster(projectile: projectile, monster: monster)
+ print("They collided!")
+ 
+ let shockwave = SKShapeNode(circleOfRadius: 5)
+ shockwave.zPosition = 1
+ shockwave.position = contact.contactPoint
+ addChild(shockwave)
+ shockwave.run(debugMan.createShockWave())
+ }
+ 
+ }
+ 
+ @available(*, deprecated)
+ func didEnd(_ contact: SKPhysicsContact) {
+ if contact.bodyA.node?.name == "circle2" || contact.bodyB.node?.name == "circle2" {
+ print("The moving circle has left the intersection are with the tower.")
+ }
+ }
+ */
