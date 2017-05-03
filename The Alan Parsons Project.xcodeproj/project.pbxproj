@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E90F04521EBA33C200C768B2 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04511EBA33C200C768B2 /* LogHelper.swift */; };
+		E90F04531EBA33C200C768B2 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04511EBA33C200C768B2 /* LogHelper.swift */; };
+		E90F04541EBA33C200C768B2 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04511EBA33C200C768B2 /* LogHelper.swift */; };
+		E90F04561EBA343600C768B2 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04551EBA343600C768B2 /* LogType.swift */; };
+		E90F04571EBA343600C768B2 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04551EBA343600C768B2 /* LogType.swift */; };
+		E90F04581EBA343600C768B2 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04551EBA343600C768B2 /* LogType.swift */; };
 		E95C73D91EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
 		E95C73DA1EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
 		E95C73DB1EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
@@ -92,15 +98,14 @@
 		E9E823F51E9D7C9A00ECA8E5 /* Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E823F41E9D7C9A00ECA8E5 /* Mapping.swift */; };
 		E9E823F61E9D7C9A00ECA8E5 /* Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E823F41E9D7C9A00ECA8E5 /* Mapping.swift */; };
 		E9E823F71E9D7C9A00ECA8E5 /* Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E823F41E9D7C9A00ECA8E5 /* Mapping.swift */; };
-		E9E824061E9E803000ECA8E5 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E824051E9E803000ECA8E5 /* StringError.swift */; };
-		E9E824071E9E803000ECA8E5 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E824051E9E803000ECA8E5 /* StringError.swift */; };
-		E9E824081E9E803000ECA8E5 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E824051E9E803000ECA8E5 /* StringError.swift */; };
 		E9E83E801EB7830600D945B0 /* WayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E83E7F1EB7830600D945B0 /* WayBuilder.swift */; };
 		E9E83E811EB7830600D945B0 /* WayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E83E7F1EB7830600D945B0 /* WayBuilder.swift */; };
 		E9E83E821EB7830600D945B0 /* WayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E83E7F1EB7830600D945B0 /* WayBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E90F04511EBA33C200C768B2 /* LogHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
+		E90F04551EBA343600C768B2 /* LogType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogType.swift; sourceTree = "<group>"; };
 		E95C73D81EB94ED700D03F60 /* TerrainType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerrainType.swift; sourceTree = "<group>"; };
 		E9746A3D1E9BA5AC003D64E6 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		E9746A3E1E9BA5AC003D64E6 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -143,7 +148,6 @@
 		E9DFAEC01EB3B4C700DE143D /* MapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		E9E8239F1E9BD2FD00ECA8E5 /* GroundTiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GroundTiles.sks; sourceTree = "<group>"; };
 		E9E823F41E9D7C9A00ECA8E5 /* Mapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapping.swift; sourceTree = "<group>"; };
-		E9E824051E9E803000ECA8E5 /* StringError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
 		E9E83E7F1EB7830600D945B0 /* WayBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WayBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,6 +305,7 @@
 		E9E823EE1E9CE40200ECA8E5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E90F04511EBA33C200C768B2 /* LogHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -326,11 +331,11 @@
 		E9E824091E9E807C00ECA8E5 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				E9E824051E9E803000ECA8E5 /* StringError.swift */,
 				E97D6D051EA3A57700B8AA87 /* Resources.swift */,
 				E97D6D0D1EA3C4BB00B8AA87 /* BuildableUnitCategories.swift */,
 				E9DFAEC01EB3B4C700DE143D /* MapType.swift */,
 				E95C73D81EB94ED700D03F60 /* TerrainType.swift */,
+				E90F04551EBA343600C768B2 /* LogType.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -482,8 +487,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E97D6D121EA3D47600B8AA87 /* UserInteractionManager.swift in Sources */,
+				E90F04521EBA33C200C768B2 /* LogHelper.swift in Sources */,
 				E9746A871E9BA76D003D64E6 /* DebugMan.swift in Sources */,
 				E9995C431EB23AE80092A77F /* IDGenerator.swift in Sources */,
+				E90F04561EBA343600C768B2 /* LogType.swift in Sources */,
 				E9E83E801EB7830600D945B0 /* WayBuilder.swift in Sources */,
 				E97D6CFE1EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
 				E95C73D91EB94ED700D03F60 /* TerrainType.swift in Sources */,
@@ -501,7 +508,6 @@
 				E9E823F51E9D7C9A00ECA8E5 /* Mapping.swift in Sources */,
 				E9DFAEC11EB3B4C700DE143D /* MapType.swift in Sources */,
 				E9746A4B1E9BA5AC003D64E6 /* GameViewController.swift in Sources */,
-				E9E824061E9E803000ECA8E5 /* StringError.swift in Sources */,
 				E9746A491E9BA5AC003D64E6 /* AppDelegate.swift in Sources */,
 				E9D505FF1EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
 				E97D6D061EA3A57700B8AA87 /* Resources.swift in Sources */,
@@ -514,8 +520,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9746A881E9BA76D003D64E6 /* DebugMan.swift in Sources */,
+				E90F04531EBA33C200C768B2 /* LogHelper.swift in Sources */,
 				E97D6D0B1EA3AE6F00B8AA87 /* Monster.swift in Sources */,
 				E9995C441EB23CC40092A77F /* IDGenerator.swift in Sources */,
+				E90F04571EBA343600C768B2 /* LogType.swift in Sources */,
 				E9E83E811EB7830600D945B0 /* WayBuilder.swift in Sources */,
 				E97D6D031EA2849400B8AA87 /* BuildMenuManager.swift in Sources */,
 				E95C73DA1EB94ED700D03F60 /* TerrainType.swift in Sources */,
@@ -536,7 +544,6 @@
 				E97D6CEF1EA2792900B8AA87 /* StateValuesManager.swift in Sources */,
 				E97D6CFF1EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
 				E9D506001EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
-				E9E824071E9E803000ECA8E5 /* StringError.swift in Sources */,
 				E9746A5A1E9BA5AD003D64E6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,8 +553,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9746A891E9BA76D003D64E6 /* DebugMan.swift in Sources */,
+				E90F04541EBA33C200C768B2 /* LogHelper.swift in Sources */,
 				E97D6D0C1EA3AE6F00B8AA87 /* Monster.swift in Sources */,
 				E9995C451EB23CC40092A77F /* IDGenerator.swift in Sources */,
+				E90F04581EBA343600C768B2 /* LogType.swift in Sources */,
 				E9E83E821EB7830600D945B0 /* WayBuilder.swift in Sources */,
 				E97D6D041EA2849400B8AA87 /* BuildMenuManager.swift in Sources */,
 				E95C73DB1EB94ED700D03F60 /* TerrainType.swift in Sources */,
@@ -568,7 +577,6 @@
 				E97D6CF01EA2792900B8AA87 /* StateValuesManager.swift in Sources */,
 				E97D6D001EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
 				E9D506011EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
-				E9E824081E9E803000ECA8E5 /* StringError.swift in Sources */,
 				E9746A681E9BA5AD003D64E6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

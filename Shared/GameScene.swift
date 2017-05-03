@@ -116,11 +116,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             map.setTileGroup(MapBuilder.instance.tileSets[.Buildings]?.tileGroups[3], forColumn: Int(point.x), row: Int(point.y))
         }
         
-        let reversedPoints = waypoints.reversed()
+        // TODO
+        // Hacky way of making sure no duplicates are stored.
+        // Better check that no duplicates get in there in the first place.
+        let unique = Array(NSOrderedSet(array: waypoints))
+        
+        let reversedPoints = unique.reversed()
         
         var positions = [CGPoint]()
         for point in reversedPoints {
-            positions.append(map.centerOfTile(atColumn: Int(point.x), row: Int(point.y)))
+            let p = point as! CGPoint
+            positions.append(map.centerOfTile(atColumn: Int(p.x), row: Int(p.y)))
         }
         
         let monster = childNode(withName: "MonsterBoss") as! SKSpriteNode
