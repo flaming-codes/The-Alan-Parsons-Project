@@ -24,8 +24,10 @@ class WayBuilder {
     fileprivate var upperRightCorner: CGPoint?
     fileprivate var targetArea = [CGPoint]()
     fileprivate var prohibitedMapTypes: [TerrainType]?
-    fileprivate let referencePointsClockwise = [CGPoint(x: 1, y: 0), CGPoint(x: 0, y: 1), CGPoint(x: -1, y: 1),
-                                                CGPoint(x: -1, y: 0), CGPoint(x: 0, y: -1), CGPoint(x: 1, y: -1)]
+    fileprivate let referencePointsClockwiseEvenColumn = [CGPoint(x: 0, y: 1), CGPoint(x: 1, y: 0), CGPoint(x: 1, y: -1),
+                                                          CGPoint(x: 0, y: -1), CGPoint(x: -1, y: -1), CGPoint(x: -1, y: 0)]
+    fileprivate let referencePointsClockwiseUnevenColumn = [CGPoint(x: 0, y: 1), CGPoint(x: 1, y: 1), CGPoint(x: 1, y: 0),
+                                                          CGPoint(x: 0, y: -1), CGPoint(x: -1, y: 0), CGPoint(x: -1, y: 1)]
     
     let defaultColumns = 14
     let defaultRows = 14
@@ -34,11 +36,11 @@ class WayBuilder {
     var segmentsPerLength: Int { return defaultColumns / defaultSegmentLengthInColumns }
     var segmentsPerHeight: Int { return defaultRows / defaultSegmentHeightInRows }
     
-    fileprivate var probabilityValues: [Probabilies: Float] = [.Central : 1,
-                                                               .CentralLeft : 0.25,
-                                                               .CentralRight : 0.25,
-                                                               .WeakLeft : 0.125,
-                                                               .WeakRight : 0.125,
+    fileprivate var probabilityValues: [Probabilies: Float] = [.Central : 0.5,
+                                                               .CentralLeft : 0.3,
+                                                               .CentralRight : 0.3,
+                                                               .WeakLeft : 0.1,
+                                                               .WeakRight : 0.1,
                                                                .Back : 0]
     
     fileprivate enum TargetDirection {
@@ -71,7 +73,8 @@ class WayBuilder {
     ///            stored as a chronological list of CGPoints.
     func make(segmentsToProcess: Int,
               from point: CGPoint = CGPoint(x: 0, y: 0),
-              withMaps maps: [SKTileMapNode]? = nil) -> [CGPoint] {
+              withMaps maps: [SKTileMapNode]? = nil,
+              removeDuplicates: Bool = true) -> [CGPoint] {
         
         // Make sure to initalize the array.
         if waypoints == nil {
@@ -101,7 +104,7 @@ class WayBuilder {
             let magicIndex = getSegmentColumn(latestSegmentIndex) % 2 == 0
                 ? latestSegmentIndex
                 : (segmentsPerHeight - 1) - (latestSegmentIndex % segmentsPerHeight) + (getSegmentColumn(latestSegmentIndex) * segmentsPerHeight)
-
+            
             track(.I, "Computed segment index: \(magicIndex).", self)
             createSegmentBounds(segmentIndex: magicIndex, withTarget: true)
             
@@ -111,8 +114,17 @@ class WayBuilder {
             latestSegmentIndex += 1
         }
         
-        // Clean up some variables, if necessary.
+        // Put on the finishing touches, if necessary.
         self.maps.removeAll()
+        
+        if removeDuplicates {
+            let cleanWay = Array(NSOrderedSet(array: waypoints!))
+            waypoints?.removeAll()
+            
+            for point in cleanWay {
+                waypoints?.append(point as! CGPoint)
+            }
+        }
         
         return waypoints!
     }
@@ -335,8 +347,8 @@ class WayBuilder {
         
         while newNeighbor == nil {
             
-            let i = GKRandomSource.sharedRandom().nextInt(upperBound: referencePointsClockwise.count)
-            let nextPointCandidate = addCGPoints(latestPoint, referencePointsClockwise[i])
+            let i = GKRandomSource.sharedRandom().nextInt(upperBound: referencePointsClockwiseEvenColumn.count)
+            let nextPointCandidate = addCGPoints(latestPoint, referencePointsClockwiseEvenColumn[i])
             
             if pastSegmentPoints.contains(nextPointCandidate) {
                 track(.I, "Possible new neighbor already stored as past point. Not valid, retrying.", self)
@@ -384,14 +396,14 @@ class WayBuilder {
     ///   - newPoint: The latest stored waypoint.
     /// - Returns: Dictonary of indizes regarding the 'referencePointsClockwise' array and its computed probabilities.
     func getNeighborProbabilities(oldPoint: CGPoint, latestPoint: CGPoint) -> [Int:Float]{
-        let count = referencePointsClockwise.count
+        let count = referencePointsClockwiseEvenColumn.count
         
         // Calculate the point where to start the probability assignment.
         // This point is a neighbor from 'newPoint', yet only with realtive x und y values.
         let alignmentPoint = subtractCGPoints(minuend: latestPoint, subtrahend: oldPoint)
         
         // Retrieve index from central 'forward' moving point.
-        let indexCentral = referencePointsClockwise.index(of: alignmentPoint)!
+        let indexCentral = referencePointsClockwiseEvenColumn.index(of: alignmentPoint)!
         let indexCentralLeft = (indexCentral + count - 1) % count
         let indexCentralRight = (indexCentral + 1) % count
         let indexWeakLeft = (indexCentral + count - 2) % count
@@ -408,6 +420,17 @@ class WayBuilder {
         return probabilityPerPoint
     }
     
+    func getCorrectReferencePoint(point: CGPoint,at index: Int) -> CGPoint {
+        guard index >= 0 || index < referencePointsClockwiseUnevenColumn.count else {
+            track(.F, "Index for determining referencePoint is out of bounds", self)
+            abort()
+        }
+        
+        return Int(point.x) % 2 == 0
+            ? referencePointsClockwiseEvenColumn[index]
+            : referencePointsClockwiseUnevenColumn[index]
+    }
+    
     /// Little helper to subtract to CGPoint's.
     ///
     /// - Parameters:
@@ -415,7 +438,7 @@ class WayBuilder {
     ///   - subtrahend: The value to subtract.
     /// - Returns: Result of a CGPoint-subtraction.
     func subtractCGPoints(minuend: CGPoint, subtrahend: CGPoint) -> CGPoint {
-        return CGPoint(x: minuend.x - subtrahend.x, y: minuend.y - subtrahend.y)
+        return CGPoint(x: (minuend.x - subtrahend.x), y: (minuend.y - subtrahend.y))
     }
     
     func addCGPoints(_ a: CGPoint, _ b: CGPoint) -> CGPoint {
@@ -452,7 +475,7 @@ class WayBuilder {
         var direction: TargetDirection
         let districtsPerHeight = defaultRows / defaultSegmentHeightInRows
         let currentDistrictColumn: Int = getSegmentColumn(districtIndex)
-                
+        
         // targetLine (except for last district in column) goes upward.
         if currentDistrictColumn % 2 == 0 {
             
@@ -611,5 +634,131 @@ class WayBuilder {
     /// - Returns: The lower-bound value.
     func calculateLowerBoundIndex(index: Int) -> Int {
         return index - (index % defaultSegmentLengthInColumns)
+    }
+    
+    /// Retrieve the correct type of way-tile for a given waypoint on the map.
+    ///
+    /// - Parameter waypoint: The point to use as reference.
+    /// - Returns: A string containing the indices of the neighbors in the naming schema for setting the correct way tile.
+    func getWayTileName(for waypoint: CGPoint) -> String {
+        guard waypoints != nil && waypoints!.count > 0 else {
+            track(.E, "waypoints[] is nil.", self)
+            return ""
+        }
+        
+        if let index = waypoints?.index(of: waypoint) {
+            
+            // TODO
+            // Implement reasonable treatment of first tile.
+            if index == 0 || index == waypoints!.count - 1 {
+                track(.I, "First or last index detected, using debug tile name.", self)
+                return "Big_1_2"
+            }
+            
+            let firstNeighbor = waypoints![index - 1]
+            let secondNeighbor = waypoints![index + 1]
+            
+            track(.I, "Point to process: \(waypoint), 1. n: \(firstNeighbor), 2. n: \(secondNeighbor)", self)
+            
+            let firstRelativeValues = calculateRelativePositionBySubtraction(minuend: waypoint, subtrahend: firstNeighbor)
+            let secondRelativeValues = calculateRelativePositionBySubtraction(minuend: waypoint, subtrahend: secondNeighbor)
+            
+            let firstIndex = mapRelativePointToWaySchema(with: firstRelativeValues, columnReference: Int(waypoint.x))
+            let secondIndex = mapRelativePointToWaySchema(with: secondRelativeValues, columnReference: Int(waypoint.x))
+            
+            return firstIndex < secondIndex
+                ? "Big_\(firstIndex)_\(secondIndex)"
+                : "Big_\(secondIndex)_\(firstIndex)"
+        }
+        
+        return ""
+    }
+    
+    /// Retrieve the matching tile for a given waypoint.
+    ///
+    /// - Parameter point: The point to look for a matching tile.
+    /// - Returns: The matching tile group.
+    func getWayTile(for point: CGPoint) -> SKTileGroup? {
+        track(.I, "Tile to choose: \(getWayTileName(for: point))", self)
+        
+        /*
+        if let g = wayTileSet?.tileGroups {
+            for group in g {
+                track(.I, "TileGroup to use: \(group.name!)", self)
+            }
+        }*/
+        
+        if let groups = MapBuilder.instance.tileSets[.Way]?.tileGroups {
+            
+            let tileToChoose = getWayTileName(for: point)
+            for group in groups {
+                if group.name! == tileToChoose {
+                    return group
+                }
+            }
+            
+            track(.E, "No matching tileGroup found.", self)
+        }
+        
+        track(.E, "No SKTileSet for way defined yet.", self)
+        return nil
+    }
+    
+    /// Little helper to get the correct neighbor-index for a given point
+    /// in this naming schema.
+    ///
+    /// - Parameter point: The point to use for mapping.
+    /// - Parameter columnReference: The center-point's column index to correctly get neighbors.
+    /// - Returns: Index of neighbor in schema
+    func mapRelativePointToWaySchema(with point: CGPoint, columnReference: Int) -> Int {
+        track(.I, "Point received: \(point).", self)
+        
+        if columnReference % 2 == 0 {
+            switch (point.x, point.y) {
+            case (-0,1):
+                return 1
+            case (1,-0):
+                return 2
+            case (1,-1):
+                return 3
+            case (-0,-1):
+                return 4
+            case (-1,-1):
+                return 5
+            case (-1,-0):
+                return 6
+            default:
+                track(.E, "Point's relative values are out of bounds: \(point).", self)
+                return 1
+            }
+            
+        } else {
+            switch (point.x, point.y) {
+            case (-0,1):
+                return 1
+            case (1,1):
+                return 2
+            case (1,-0):
+                return 3
+            case (-0,-1):
+                return 4
+            case (-1,-0):
+                return 5
+            case (-1,1):
+                return 6
+            default:
+                track(.E, "Point's relative values are out of bounds: \(point).", self)
+                return 1
+            }
+        }
+        
+    }
+    
+    func calculateRelativePositionBySubtraction(minuend: CGPoint, subtrahend: CGPoint) -> CGPoint {
+        var point = subtractCGPoints(minuend: minuend, subtrahend: subtrahend)
+        point.x *= -1
+        point.y *= -1
+        
+        return point
     }
 }

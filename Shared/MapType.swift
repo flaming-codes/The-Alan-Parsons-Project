@@ -10,7 +10,8 @@ import Foundation
 
 enum MapType {
     case Ground
-    case District
+    case Way
     case Buildings
+    case District
     case InBuildMode
 }

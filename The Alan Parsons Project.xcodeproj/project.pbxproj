@@ -16,6 +16,9 @@
 		E95C73D91EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
 		E95C73DA1EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
 		E95C73DB1EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
+		E9673C421EBB4DD500574E15 /* WayTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = E9673C411EBB4DD500574E15 /* WayTiles.sks */; };
+		E9673C431EBB4DD500574E15 /* WayTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = E9673C411EBB4DD500574E15 /* WayTiles.sks */; };
+		E9673C441EBB4DD500574E15 /* WayTiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = E9673C411EBB4DD500574E15 /* WayTiles.sks */; };
 		E9746A491E9BA5AC003D64E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9746A481E9BA5AC003D64E6 /* AppDelegate.swift */; };
 		E9746A4B1E9BA5AC003D64E6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9746A4A1E9BA5AC003D64E6 /* GameViewController.swift */; };
 		E9746A4E1E9BA5AC003D64E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9746A4C1E9BA5AC003D64E6 /* Main.storyboard */; };
@@ -101,12 +104,16 @@
 		E9E83E801EB7830600D945B0 /* WayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E83E7F1EB7830600D945B0 /* WayBuilder.swift */; };
 		E9E83E811EB7830600D945B0 /* WayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E83E7F1EB7830600D945B0 /* WayBuilder.swift */; };
 		E9E83E821EB7830600D945B0 /* WayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E83E7F1EB7830600D945B0 /* WayBuilder.swift */; };
+		E9EEFC2A1EBB188500F74E44 /* WayTileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EEFC291EBB188500F74E44 /* WayTileType.swift */; };
+		E9EEFC2B1EBB188500F74E44 /* WayTileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EEFC291EBB188500F74E44 /* WayTileType.swift */; };
+		E9EEFC2C1EBB188500F74E44 /* WayTileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EEFC291EBB188500F74E44 /* WayTileType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E90F04511EBA33C200C768B2 /* LogHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		E90F04551EBA343600C768B2 /* LogType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogType.swift; sourceTree = "<group>"; };
 		E95C73D81EB94ED700D03F60 /* TerrainType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerrainType.swift; sourceTree = "<group>"; };
+		E9673C411EBB4DD500574E15 /* WayTiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WayTiles.sks; sourceTree = "<group>"; };
 		E9746A3D1E9BA5AC003D64E6 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		E9746A3E1E9BA5AC003D64E6 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		E9746A3F1E9BA5AC003D64E6 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -149,6 +156,7 @@
 		E9E8239F1E9BD2FD00ECA8E5 /* GroundTiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GroundTiles.sks; sourceTree = "<group>"; };
 		E9E823F41E9D7C9A00ECA8E5 /* Mapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapping.swift; sourceTree = "<group>"; };
 		E9E83E7F1EB7830600D945B0 /* WayBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WayBuilder.swift; sourceTree = "<group>"; };
+		E9EEFC291EBB188500F74E44 /* WayTileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WayTileType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +184,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E9673C401EBB4DB000574E15 /* Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				E9E8239F1E9BD2FD00ECA8E5 /* GroundTiles.sks */,
+				E9673C411EBB4DD500574E15 /* WayTiles.sks */,
+			);
+			name = Tiles;
+			sourceTree = "<group>";
+		};
 		E9746A371E9BA5AC003D64E6 = {
 			isa = PBXGroup;
 			children = (
@@ -294,10 +311,10 @@
 		E9E823AD1E9BD95600ECA8E5 /* Scenes & Actions */ = {
 			isa = PBXGroup;
 			children = (
+				E9673C401EBB4DB000574E15 /* Tiles */,
 				E9746A3D1E9BA5AC003D64E6 /* Actions.sks */,
 				E9746A3E1E9BA5AC003D64E6 /* GameScene.sks */,
 				E9746A3F1E9BA5AC003D64E6 /* GameScene.swift */,
-				E9E8239F1E9BD2FD00ECA8E5 /* GroundTiles.sks */,
 			);
 			name = "Scenes & Actions";
 			sourceTree = "<group>";
@@ -336,6 +353,7 @@
 				E9DFAEC01EB3B4C700DE143D /* MapType.swift */,
 				E95C73D81EB94ED700D03F60 /* TerrainType.swift */,
 				E90F04551EBA343600C768B2 /* LogType.swift */,
+				E9EEFC291EBB188500F74E44 /* WayTileType.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -447,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9746A721E9BA5AD003D64E6 /* GameScene.sks in Resources */,
+				E9673C421EBB4DD500574E15 /* WayTiles.sks in Resources */,
 				E9746A4E1E9BA5AC003D64E6 /* Main.storyboard in Resources */,
 				E9E823A01E9BD2FD00ECA8E5 /* GroundTiles.sks in Resources */,
 				E9746A6F1E9BA5AD003D64E6 /* Actions.sks in Resources */,
@@ -462,6 +481,7 @@
 				E9746A5F1E9BA5AD003D64E6 /* Main.storyboard in Resources */,
 				E9746A731E9BA5AD003D64E6 /* GameScene.sks in Resources */,
 				E9746A791E9BA5AD003D64E6 /* Assets.xcassets in Resources */,
+				E9673C431EBB4DD500574E15 /* WayTiles.sks in Resources */,
 				E9746A701E9BA5AD003D64E6 /* Actions.sks in Resources */,
 				E9E823A11E9BD2FD00ECA8E5 /* GroundTiles.sks in Resources */,
 			);
@@ -474,6 +494,7 @@
 				E9746A6D1E9BA5AD003D64E6 /* Main.storyboard in Resources */,
 				E9746A741E9BA5AD003D64E6 /* GameScene.sks in Resources */,
 				E9746A7A1E9BA5AD003D64E6 /* Assets.xcassets in Resources */,
+				E9673C441EBB4DD500574E15 /* WayTiles.sks in Resources */,
 				E9746A711E9BA5AD003D64E6 /* Actions.sks in Resources */,
 				E9E823A21E9BD2FD00ECA8E5 /* GroundTiles.sks in Resources */,
 			);
@@ -512,6 +533,7 @@
 				E9D505FF1EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
 				E97D6D061EA3A57700B8AA87 /* Resources.swift in Sources */,
 				E97D6CEE1EA2792900B8AA87 /* StateValuesManager.swift in Sources */,
+				E9EEFC2A1EBB188500F74E44 /* WayTileType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +567,7 @@
 				E97D6CFF1EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
 				E9D506001EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
 				E9746A5A1E9BA5AD003D64E6 /* AppDelegate.swift in Sources */,
+				E9EEFC2B1EBB188500F74E44 /* WayTileType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +601,7 @@
 				E97D6D001EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
 				E9D506011EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
 				E9746A681E9BA5AD003D64E6 /* AppDelegate.swift in Sources */,
+				E9EEFC2C1EBB188500F74E44 /* WayTileType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,14 +31,16 @@ struct MapBuilder {
         
         // TODO Create tiles to initialize sets correctly.
         tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .Ground)
+        tileSets.updateValue(SKTileSet(named: "Way Big Hexagonal Flat Tile Set")!, forKey: .Way)
         tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .Buildings)
         tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .District)
         tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .InBuildMode)
         
         zPositions.updateValue(0, forKey: .Ground)
-        zPositions.updateValue(1, forKey: .Buildings)
-        zPositions.updateValue(2, forKey: .District)
-        zPositions.updateValue(3, forKey: .InBuildMode)
+        zPositions.updateValue(1, forKey: .Way)
+        zPositions.updateValue(2, forKey: .Buildings)
+        zPositions.updateValue(3, forKey: .District)
+        zPositions.updateValue(4, forKey: .InBuildMode)
     }
     
     func make(with tileSet: SKTileSet, columns: Int, rows: Int, fill: Bool) -> SKTileMapNode {

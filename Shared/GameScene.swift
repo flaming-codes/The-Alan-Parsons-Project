@@ -59,6 +59,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(MapManager.instance.maps[.Ground]!)
         //MapManager.instance.maps[.Ground]!.isHidden = true
         
+        MapManager.instance.maps[.Way]?.position = CGPoint(x: 50, y: self.frame.midY)
+        addChild(MapManager.instance.maps[.Way]!)
+        
         MapManager.instance.maps[MapType.Buildings]?.position = CGPoint(x: 50, y: self.frame.midY)
         addChild(MapManager.instance.maps[.Buildings]!)
         //MapManager.instance.maps[.Buildings]!.isHidden = true
@@ -107,14 +110,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         // DEBUG - WORKS - DELETE AFTER INTEGRATION WITH MAPBUILDER
-        let map = MapManager.instance.maps[.Ground]!
+        let map = MapManager.instance.maps[.Way]!
         let waypoints = WayBuilder.instance
             .make(segmentsToProcess: 4)
-        
-        for point in waypoints {
-            print("Point to draw: \(point).")
-            map.setTileGroup(MapBuilder.instance.tileSets[.Buildings]?.tileGroups[3], forColumn: Int(point.x), row: Int(point.y))
-        }
+
         
         // TODO
         // Hacky way of making sure no duplicates are stored.
@@ -122,6 +121,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let unique = Array(NSOrderedSet(array: waypoints))
         
         let reversedPoints = unique.reversed()
+        
+        for p in reversedPoints {
+            let point = p as! CGPoint
+            print("Point to draw: \(point).")
+            //map.setTileGroup(MapBuilder.instance.tileSets[.Buildings]?.tileGroups[3], forColumn: Int(point.x), row: Int(point.y))
+            if let tile = WayBuilder.instance.getWayTile(for: point) {
+                map.setTileGroup(tile, forColumn: Int(point.x), row: Int(point.y))
+            } else {
+                print("Setting waytile failed.")
+            }
+        }
         
         var positions = [CGPoint]()
         for point in reversedPoints {

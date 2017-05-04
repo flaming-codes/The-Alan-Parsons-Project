@@ -30,6 +30,7 @@ class MapManager {
     
     private init() {
         maps.updateValue(MapBuilder.instance.make(type: .Ground, fill: true), forKey: .Ground)
+        maps.updateValue(MapBuilder.instance.make(type: .Way, fill: false), forKey: .Way)
         maps.updateValue(MapBuilder.instance.make(type: .Buildings, fill: false), forKey: .Buildings)
         maps.updateValue(MapBuilder.instance.make(type: .District, fill: false), forKey: .District)
         maps.updateValue(MapBuilder.instance.make(type: .InBuildMode, fill: false), forKey: .InBuildMode)
