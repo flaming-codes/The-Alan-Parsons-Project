@@ -9,13 +9,15 @@
 import GameplayKit
 
 class TowerBuilder {
-
+    
     // MARK: - Variables
     
     static let instance: TowerBuilder = {
         return TowerBuilder()
     }()
     
+    
+    /// Tower to alter during building process and deliever as product.
     var towerInCache: Tower?
     
     enum TowerType {
@@ -28,7 +30,7 @@ class TowerBuilder {
     private init() {}
     
     func start(type: TowerType, originOfRange: CGPoint) -> TowerBuilder {
-        TowerBuilder.instance.towerInCache = Tower(
+        self.towerInCache = Tower(
             column: 0,
             row: 0,
             type: type,

@@ -38,7 +38,7 @@ class MapManager {
     
     func expand(mapType: MapType) {
         if mapType == .Ground {
-            MapBuilder.instance.expandWithFill(map: maps[mapType]!, type: mapType)
+            MapBuilder.instance.expand(map: maps[mapType]!, type: mapType, andFill: true)
             
         } else {
             MapBuilder.instance.expand(map: maps[mapType]!, type: mapType)

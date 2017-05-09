@@ -50,7 +50,7 @@ class WayBuilder {
         case West
     }
     
-    enum  Probabilies {
+    fileprivate enum  Probabilies {
         case Central
         case CentralLeft
         case CentralRight
@@ -95,17 +95,17 @@ class WayBuilder {
             //  Every segment in an uneven column of segments has to be reversed
             //  in its position.
             //  That's because the global waypoints have to go in a snake-style like
-            //  fashion. Without this modificatino, the way would never complete due
+            //  fashion. Without this modification, the way would never complete due
             //  to the fact that the first segment in an uneven segment column would
             //  be down where it should be on top.
             
-            track(.I, "SegmentIndex before modification: \(latestSegmentIndex).", self)
+            track(.I, "SegmentIndex before modification: \(latestSegmentIndex)", self)
             
             let magicIndex = getSegmentColumn(latestSegmentIndex) % 2 == 0
                 ? latestSegmentIndex
                 : (segmentsPerHeight - 1) - (latestSegmentIndex % segmentsPerHeight) + (getSegmentColumn(latestSegmentIndex) * segmentsPerHeight)
             
-            track(.I, "Computed segment index: \(magicIndex).", self)
+            track(.I, "Computed segment index: \(magicIndex)", self)
             createSegmentBounds(segmentIndex: magicIndex, withTarget: true)
             
             // Add the newly created waypoints from the latest segment to the master waypoints-list.
@@ -129,7 +129,7 @@ class WayBuilder {
         return waypoints!
     }
     
-    /// Create the the way for a given segment.
+    /// Create an array of waypoints for a segment.
     ///
     /// - Parameter startingPoint: The point to start from
     /// - Returns: A chronological list of waypoints.
@@ -144,7 +144,7 @@ class WayBuilder {
             isDone = !way.isEmpty
             
             if !isDone {
-                track(.I, "The way returned from makeWay() was empty. Starting over.", self)
+                track(.I, "The way returned from makeWay() was empty. Starting over", self)
             }
         }
         
@@ -159,7 +159,7 @@ class WayBuilder {
     /// - Returns: WayBuilder-instance to fulfill builder-pattern.
     func defineAreaBounds(lowerLeftIncl: CGPoint, upperRightIncl: CGPoint) -> WayBuilder {
         guard lowerLeftIncl.x >= 0 && lowerLeftIncl.y >= 0 && upperRightIncl.x >= 1 && upperRightIncl.y >= 1 else {
-            track(.E, "One or more values provided are out of bounds.", self)
+            track(.E, "One or more values provided are out of bounds", self)
             return self
         }
         
@@ -187,7 +187,7 @@ class WayBuilder {
     /// - Returns: WayBuilder-instance to fulfill builder-pattern.
     func defineTargetBounds(targetArea: [CGPoint]) -> WayBuilder {
         guard !targetArea.isEmpty else {
-            track(.F, "One or more values provided are out of bounds.", self)
+            track(.F, "One or more values provided are out of bounds", self)
             abort()
         }
         
@@ -224,10 +224,10 @@ class WayBuilder {
                 //segmentPoints.append(chooseNeighbor(possiblePoints: neighbors, ))
                 segmentPoints.append(chooseNeighbor(possiblePoints: neighbors, pastSegmentPoints: segmentPoints))
                 
-                track(.I, "New point: column:\(segmentPoints.last!.x), row: \(segmentPoints.last!.y).", self)
+                track(.I, "New point: column:\(segmentPoints.last!.x), row: \(segmentPoints.last!.y)", self)
                 
             } else {
-                track(.I, "Neighbors returned to makeSegement() empty. Count: \(count).", self)
+                track(.I, "Neighbors returned to makeSegement() empty. Count: \(count)", self)
                 return [CGPoint]()
                 //abort()
             }
@@ -263,7 +263,7 @@ class WayBuilder {
             }
         }
         
-        if points.isEmpty { track(.I, "No neighbor found.", self) }
+        if points.isEmpty { track(.I, "No neighbor found", self) }
         
         return points
     }
@@ -278,7 +278,7 @@ class WayBuilder {
         // Otherwise, the point would block itself from being build by
         // blocking with its own neighbors.
         if pastPoints.count == 1 {
-            track(.I, "Finding neighbors from starting point.", self)
+            track(.I, "Finding neighbors from starting point", self)
             return findAllNeighbors(fromPoint: pastPoints.last!)
         }
         
@@ -324,7 +324,7 @@ class WayBuilder {
         //  (with only one point, no direction can be specified).
         if pastSegmentPoints.count < 2 {
             
-            track(.I, "Too little waypoints stored for smart way-building. Simple method used insted.", self)
+            track(.I, "Too little waypoints stored for smart way-building. Simple method used insted", self)
             return possiblePoints[GKRandomSource.sharedRandom().nextInt(upperBound: possiblePoints.count)]
         }
         
@@ -351,7 +351,7 @@ class WayBuilder {
             let nextPointCandidate = addCGPoints(latestPoint, referencePointsClockwiseEvenColumn[i])
             
             if pastSegmentPoints.contains(nextPointCandidate) {
-                track(.I, "Possible new neighbor already stored as past point. Not valid, retrying.", self)
+                track(.I, "Possible new neighbor already stored as past point. Not valid, retrying", self)
                 
             } else if possiblePoints.contains(nextPointCandidate) {
                 if GKRandomSource.sharedRandom().nextUniform() <= relatedReferencePoints[i] {
@@ -360,11 +360,11 @@ class WayBuilder {
                     newNeighbor = nextPointCandidate
                     track(.I, "New neighbor chosen: \(newNeighbor!).", self)
                     if pastSegmentPoints.contains(newNeighbor!) {
-                        track(.E, "Strangely, the new neighbor has already been stored, yet got chosen.", self)
+                        track(.E, "Strangely, the new neighbor has already been stored, yet got chosen", self)
                     }
                 }
                 
-                track(.I, "Too bad, dat new neighbor hadn't that much luck.", self)
+                track(.I, "Too bad, dat new neighbor hadn't that much luck", self)
             }
         }
         
@@ -452,7 +452,7 @@ class WayBuilder {
     ///   - from: Result if point's x and y value are non-negative.
     fileprivate func assertPointIsValid(_ point: CGPoint, from: String) {
         if point.x < 0 || point.y < 0 {
-            track(.F, "\(from)() : At least one of point's values is < 0.", self)
+            track(.F, "\(from)() : At least one of point's values is < 0", self)
             abort()
         }
     }
@@ -479,12 +479,12 @@ class WayBuilder {
         // targetLine (except for last district in column) goes upward.
         if currentDistrictColumn % 2 == 0 {
             
-            track(.I, "Even district column to be modified.", self)
+            track(.I, "Even district column to be modified", self)
             
             // Check if last element has been reached and apply special targetLine.
             if districtIndex % districtsPerHeight == districtsPerHeight - 1 {
                 
-                track(.I, "Last district in column to be modified.", self)
+                track(.I, "Last district in column to be modified", self)
                 
                 // '+1' to compensate for starting from '0', '-1' to use correct column index (would be 1 off to the right insted).
                 //let colIndexToStartFrom = ((currentDistrictColumn + 1) * defaultDistrictLengthInColumns) - 1
@@ -498,7 +498,7 @@ class WayBuilder {
                 
             } else {
                 
-                track(.I, "A standard district is to be modified.", self)
+                track(.I, "A standard district is to be modified", self)
                 
                 // A target line in an even district-column has to be applied.
                 let colIndexToStartFrom = currentDistrictColumn * defaultSegmentLengthInColumns
@@ -513,14 +513,14 @@ class WayBuilder {
             
         } else {
             
-            track(.I, "Uneven district column to be modified.", self)
+            track(.I, "Uneven district column to be modified", self)
             
             // An uneven column district has to be processed.
             // targetLine (except for last district in column) goes upward.
             // Check if last element has been reached and apply special targetLine.
             if districtIndex % districtsPerHeight == 0 {
                 
-                track(.I, "Last district in column to be modified.", self)
+                track(.I, "Last district in column to be modified", self)
                 
                 //let colIndexToStartFrom = ((currentDistrictColumn + 1) * defaultDistrictLengthInColumns) - 1
                 let colIndexToStartFrom = ((currentDistrictColumn + 1) * defaultSegmentLengthInColumns)
@@ -533,7 +533,7 @@ class WayBuilder {
                 
             } else {
                 
-                track(.I, "A standard district is to be modified.", self)
+                track(.I, "A standard district is to be modified", self)
                 
                 // A target line in an uneven district-column has to be applied.
                 let colIndexToStartFrom = currentDistrictColumn * defaultSegmentLengthInColumns
@@ -591,7 +591,7 @@ class WayBuilder {
     ///   - withTarget: Optional boolean if the target-area should be processed, too.
     fileprivate func createSegmentBounds(segmentIndex: Int, withTarget: Bool = false) {
         guard segmentIndex >= 0 else {
-            track(.F, "segmentIndex not allowed to be < 0.", self)
+            track(.F, "segmentIndex not allowed to be < 0", self)
             abort()
         }
         
@@ -642,7 +642,7 @@ class WayBuilder {
     /// - Returns: A string containing the indices of the neighbors in the naming schema for setting the correct way tile.
     func getWayTileName(for waypoint: CGPoint) -> String {
         guard waypoints != nil && waypoints!.count > 0 else {
-            track(.E, "waypoints[] is nil.", self)
+            track(.E, "waypoints[] is nil", self)
             return ""
         }
         
@@ -651,7 +651,7 @@ class WayBuilder {
             // TODO
             // Implement reasonable treatment of first tile.
             if index == 0 || index == waypoints!.count - 1 {
-                track(.I, "First or last index detected, using debug tile name.", self)
+                track(.I, "First or last index detected, using debug tile name", self)
                 return "Big_1_2"
             }
             
@@ -660,8 +660,8 @@ class WayBuilder {
             
             track(.I, "Point to process: \(waypoint), 1. n: \(firstNeighbor), 2. n: \(secondNeighbor)", self)
             
-            let firstRelativeValues = calculateRelativePositionBySubtraction(minuend: waypoint, subtrahend: firstNeighbor)
-            let secondRelativeValues = calculateRelativePositionBySubtraction(minuend: waypoint, subtrahend: secondNeighbor)
+            let firstRelativeValues = calculateRelativePosition(withMinuend: waypoint, subtrahend: firstNeighbor)
+            let secondRelativeValues = calculateRelativePosition(withMinuend: waypoint, subtrahend: secondNeighbor)
             
             let firstIndex = mapRelativePointToWaySchema(with: firstRelativeValues, columnReference: Int(waypoint.x))
             let secondIndex = mapRelativePointToWaySchema(with: secondRelativeValues, columnReference: Int(waypoint.x))
@@ -680,14 +680,7 @@ class WayBuilder {
     /// - Returns: The matching tile group.
     func getWayTile(for point: CGPoint) -> SKTileGroup? {
         track(.I, "Tile to choose: \(getWayTileName(for: point))", self)
-        
-        /*
-        if let g = wayTileSet?.tileGroups {
-            for group in g {
-                track(.I, "TileGroup to use: \(group.name!)", self)
-            }
-        }*/
-        
+
         if let groups = MapBuilder.instance.tileSets[.Way]?.tileGroups {
             
             let tileToChoose = getWayTileName(for: point)
@@ -697,10 +690,10 @@ class WayBuilder {
                 }
             }
             
-            track(.E, "No matching tileGroup found.", self)
+            track(.E, "No matching tileGroup found", self)
         }
         
-        track(.E, "No SKTileSet for way defined yet.", self)
+        track(.E, "No SKTileSet for way defined yet", self)
         return nil
     }
     
@@ -711,8 +704,9 @@ class WayBuilder {
     /// - Parameter columnReference: The center-point's column index to correctly get neighbors.
     /// - Returns: Index of neighbor in schema
     func mapRelativePointToWaySchema(with point: CGPoint, columnReference: Int) -> Int {
-        track(.I, "Point received: \(point).", self)
+        track(.I, "Point received: \(point)", self)
         
+        // Slightly different reference points for un-/even columns.
         if columnReference % 2 == 0 {
             switch (point.x, point.y) {
             case (-0,1):
@@ -728,7 +722,7 @@ class WayBuilder {
             case (-1,-0):
                 return 6
             default:
-                track(.E, "Point's relative values are out of bounds: \(point).", self)
+                track(.E, "Point's relative values are out of bounds: \(point)", self)
                 return 1
             }
             
@@ -747,14 +741,20 @@ class WayBuilder {
             case (-1,1):
                 return 6
             default:
-                track(.E, "Point's relative values are out of bounds: \(point).", self)
+                track(.E, "Point's relative values are out of bounds: \(point)", self)
                 return 1
             }
         }
         
     }
     
-    func calculateRelativePositionBySubtraction(minuend: CGPoint, subtrahend: CGPoint) -> CGPoint {
+    /// Retrieve a point's reference coordinates relative to another given point.
+    ///
+    /// - Parameters:
+    ///   - minuend: The point used as orientation.
+    ///   - subtrahend: The point whoms reference coordinates have to be identified.
+    /// - Returns: The correct reference point for the subtrahend.
+    func calculateRelativePosition(withMinuend minuend: CGPoint, subtrahend: CGPoint) -> CGPoint {
         var point = subtractCGPoints(minuend: minuend, subtrahend: subtrahend)
         point.x *= -1
         point.y *= -1

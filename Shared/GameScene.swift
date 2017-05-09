@@ -55,11 +55,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // DEBUG MAP CREATION
         //let map = MapBuilder.instance.makeGround()
         //let groundMap = MapManager.instance.maps[.Ground]
-        MapManager.instance.maps[.Ground]?.position = CGPoint(x: 50, y: self.frame.midY)
+        MapManager.instance.maps[.Ground]?.position = CGPoint(x: 200, y: self.frame.midY)
         addChild(MapManager.instance.maps[.Ground]!)
         //MapManager.instance.maps[.Ground]!.isHidden = true
         
-        MapManager.instance.maps[.Way]?.position = CGPoint(x: 50, y: self.frame.midY)
+        MapManager.instance.maps[.Way]?.position = CGPoint(x: 200, y: self.frame.midY)
         addChild(MapManager.instance.maps[.Way]!)
         
         MapManager.instance.maps[MapType.Buildings]?.position = CGPoint(x: 50, y: self.frame.midY)
@@ -67,11 +67,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //MapManager.instance.maps[.Buildings]!.isHidden = true
         //MapManager.instance.maps[.Buildings]!.fill(with: MapBuilder.instance.tileSets[.Ground]!.tileGroups[3])
         
-        MapManager.instance.maps[.District]?.position = CGPoint(x: 50, y: self.frame.midY)
+        MapManager.instance.maps[.District]?.position = CGPoint(x: 200, y: self.frame.midY)
         addChild(MapManager.instance.maps[.District]!)
         MapManager.instance.maps[.District]!.isHidden = true
         
-        MapManager.instance.maps[.InBuildMode]?.position = CGPoint(x: 50, y: self.frame.midY)
+        MapManager.instance.maps[.InBuildMode]?.position = CGPoint(x: 200, y: self.frame.midY)
         addChild(MapManager.instance.maps[.InBuildMode]!)
         MapManager.instance.maps[.InBuildMode]!.isHidden = true
         
@@ -110,6 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         // DEBUG - WORKS - DELETE AFTER INTEGRATION WITH MAPBUILDER
+        /*
         let map = MapManager.instance.maps[.Way]!
         let waypoints = WayBuilder.instance
             .make(segmentsToProcess: 4)
@@ -155,6 +156,53 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Views should be initalized now, let's hook them up to some listeners.
         hookUpCallbacks()
+        */
+        // DEBUG
+        // Demo Periodic-class.
+        /*
+        let p = EvolutionTimer(withInterval: 5, isEvolving: true, provider: self)
+        let f: (EvolutionTimer, Any) -> Void = {
+            (p: EvolutionTimer, me: Any) -> Void in
+            
+            //let v = self
+            
+            print("Hey there from function inside periodic!")
+            print("Evolution before modification: \(p.isEvolving).")
+            p.isEvolving = true
+            print("Evolution after modification: \(p.isEvolving).")
+            /*
+            let label = SKLabelNode(text: "A message from a stored closure!")
+            label.position = CGPoint(x: v.frame.midX, y: v.frame.midY)
+            label.fontSize = 60
+            v.addChild(label)
+            */
+        }
+        
+        p.provideEvolutionFunction(toRun: f)
+        p.start(withDelayInSeconds: 0.0, isRepating: false)
+        */
+        
+        // WORKS
+        // DEBUG
+        // Proof BuldView's capabilities.
+        /*
+        let cats = BuildView.SuperCategoriesNode()
+        cats.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        addChild(cats)
+        */
+        
+        // DEBUG
+        // Create sprite and add it.
+        // WORKS
+        /*
+        let node = SKSpriteNode(imageNamed: "Hill")
+        node.position = CGPoint(x: frame.midX, y: frame.midY)
+        addChild(node)
+        */
+        
+        let buildView = BuildView()
+        buildView.position = CGPoint(x: 0, y: 0 - (frame.height / 2) + 20)
+        camera?.addChild(buildView)
     }
     
     
@@ -251,6 +299,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     extension GameScene {
         
         override func mouseDown(with event: NSEvent) {
+            
+            let timer = WaveManager()
+            timer.start(withInterval: 3)
+            
             /*
              if count == 0 {
              count += 1

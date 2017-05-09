@@ -17,8 +17,9 @@ class StateValuesView: SKNode, ResourceCallback {
     // MARK: Initializers.
     
     override init() {
-        super.init() 
-        print("StateValuesView init() called.")
+        super.init()
+        self.isUserInteractionEnabled = true
+        track(.I, "StateValuesView init() called", self)
         
         labels.updateValue(
             createLabel(text: "Coal", pos: CGPoint(x: frame.midX, y: frame.midY)),
@@ -41,10 +42,40 @@ class StateValuesView: SKNode, ResourceCallback {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Interactions.
+    
+    #if os(OSX)
+    
+    override func mouseDown(with event: NSEvent) {
+        track(.I, "StateValuesView self-detected touched", self)
+        /*
+        if let node = scene.camMenu.atPoint(event.location(in: scene.camMenu)) as? SKSpriteNode {
+            print("Hurray, a node in the build menu was touched: \(node.name!)!")
+            
+            if let name = node.name {
+                switch name {
+                case "forestTower":
+                    //scene.buildMenu.select(key: BuildableUnitCategories, value: BuildableUnit)
+                    selection = TowerBuilder.instance.start(type: .Basic).addVisuals().make()
+                    print("forestTower touched and selcted.")
+                default:
+                    print("ERROR @ UserInteractionManager : isInBuildMenuView() : default called.")
+                }
+            }
+            
+            return true
+            
+        } else {
+            return false
+        }*/
+    }
+    
+    #endif
+    
     // MARK: - Functions.
     
     func callBack(key: Resources, value: Double) {
-        print("StateValuesView with key \(key) and value \(value) called.")
+        track(.I, "StateValuesView with key \(key) and value \(value) called", self)
         labels[key]?.text = "\(key): \(value)"
     }
     

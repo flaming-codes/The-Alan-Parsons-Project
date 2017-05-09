@@ -15,6 +15,7 @@ enum BuildableUnitCategories : Hashable, Mapping {
     
     case Economy
     case Combat
+    case Civil
     case Miscellaneous
     
     // Mark: - Variables.
@@ -35,6 +36,9 @@ enum BuildableUnitCategories : Hashable, Mapping {
             return SKSpriteNode(imageNamed: "Mountain")
         case .Miscellaneous:
             return SKSpriteNode(imageNamed: "Lake")
+        default:
+            track(.I, "Default called. Returning empty sprite", self)
+            return SKSpriteNode()
         }
     }
 }

@@ -17,15 +17,27 @@ class GameViewController: NSViewController {
         
         let scene = GameScene.newGameScene()
         
-        // Present the scene
         let skView = self.view as! SKView
-        skView.presentScene(scene)
         
         skView.ignoresSiblingOrder = true
-        
         skView.showsFPS = true
         skView.showsNodeCount = true
+        
+        skView.presentScene(scene)
     }
-
+    /*
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        let scene = GameScene.newGameScene()
+        scene.scaleMode = .resizeFill
+        let skView = self.view as! SKView
+        if !skView.isInFullScreenMode {
+            if let mainWindow = skView.window {
+                mainWindow.toggleFullScreen(nil)
+            }
+        }
+        skView.presentScene(scene)
+    }
+    */
 }
 

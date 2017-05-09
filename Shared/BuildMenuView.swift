@@ -60,7 +60,7 @@ class BuildMenuView: SKNode, BuildingCallback {
         }*/
         
         // If this point has been reached, no entity from the building-menu matches. Exit with error.
-        print("ERROR @ BuildMenuView : select() : No stored unit matches the given one, it may have been delteted before.")
+        track(.E, "No stored unit matches the given one, it may have been delteted before", self)
         abort()
     }
 

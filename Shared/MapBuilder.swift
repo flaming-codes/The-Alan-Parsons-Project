@@ -28,7 +28,7 @@ struct MapBuilder {
     // MARK: - Methods.
     
     private init(){
-        
+
         // TODO Create tiles to initialize sets correctly.
         tileSets.updateValue(SKTileSet(named: "Ground Map")!, forKey: .Ground)
         tileSets.updateValue(SKTileSet(named: "Way Big Hexagonal Flat Tile Set")!, forKey: .Way)
@@ -76,10 +76,28 @@ struct MapBuilder {
     }
     
     // Works! (Passes by reference)
-    func expand(map: SKTileMapNode, type: MapType) {
+    func expand(map: SKTileMapNode, type: MapType, andFill: Bool = false) {
+        let startColumn = map.numberOfColumns
+
         map.numberOfColumns += defaultColumns
+        
+        if andFill {
+            self.expand(map: map, type: type)
+            
+            let groups = tileSets[type]!.tileGroups
+            let groupsSize = UInt32(groups.count)
+            
+            for x in startColumn...startColumn + defaultColumns {
+                for y in 0...defaultRows {
+                    
+                    // arc4random_uniform(x) == From 0 to x-1
+                    map.setTileGroup(groups[Int(arc4random_uniform(groupsSize))], forColumn: x, row: y)
+                }
+            }
+        }
     }
     
+    /*
     func expandWithFill(map: SKTileMapNode, type: MapType) {
         let startColumn = map.numberOfColumns
         
@@ -96,4 +114,5 @@ struct MapBuilder {
             }
         }
     }
+    */
 }
