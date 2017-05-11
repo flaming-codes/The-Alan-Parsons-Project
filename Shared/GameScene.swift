@@ -110,7 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         // DEBUG - WORKS - DELETE AFTER INTEGRATION WITH MAPBUILDER
-        /*
+        
         let map = MapManager.instance.maps[.Way]!
         let waypoints = WayBuilder.instance
             .make(segmentsToProcess: 4)
@@ -156,7 +156,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Views should be initalized now, let's hook them up to some listeners.
         hookUpCallbacks()
-        */
+        
         // DEBUG
         // Demo Periodic-class.
         /*
@@ -300,9 +300,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         override func mouseDown(with event: NSEvent) {
             
-            let timer = WaveManager()
-            timer.start(withInterval: 3)
-            
             /*
              if count == 0 {
              count += 1
@@ -311,12 +308,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
              sprite.run(SKAction.moveBy(x: -2000, y: 0, duration: 15))
              }*/
             
-            UserInteractionManager.instance.checkInput(event: event, scene: self)
+            //UserInteractionManager.instance.checkInput(event: event, scene: self)
             
             //MapManager.instance.maps[.Ground]!.setTileGroup(MapBuilder.instance.tileSets[.Buildings]!.tileGroups[3], forColumn: 0, row: 0)
             
             /*
-             let map = childNode(withName: "Tile Map Node") as! SKTileMapNode
+             let map = childNode(withName: "Tile Map Node") as! SKEnhancedMap
              let point = event.location(in: map)
              let c = map.tileColumnIndex(fromPosition: point)
              let r = map.tileRowIndex(fromPosition: point)

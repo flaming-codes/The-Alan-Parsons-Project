@@ -17,7 +17,7 @@ class WayBuilder {
         return WayBuilder()
     }()
     
-    fileprivate var maps = [SKTileMapNode]()
+    fileprivate var maps = [SKEnhancedMap]()
     fileprivate var waypoints: [CGPoint]?
     fileprivate var latestSegmentIndex = 0
     fileprivate var lowerLeftCorner: CGPoint?
@@ -73,7 +73,7 @@ class WayBuilder {
     ///            stored as a chronological list of CGPoints.
     func make(segmentsToProcess: Int,
               from point: CGPoint = CGPoint(x: 0, y: 0),
-              withMaps maps: [SKTileMapNode]? = nil,
+              withMaps maps: [SKEnhancedMap]? = nil,
               removeDuplicates: Bool = true) -> [CGPoint] {
         
         // Make sure to initalize the array.
@@ -198,9 +198,9 @@ class WayBuilder {
     /// Add a map to the list of maps which are checked when looking for a neighbor. Some tiles
     /// may prohibit the placement of a new waypoint.
     ///
-    /// - Parameter map: The SKTileMapNode to add.
+    /// - Parameter map: The SKEnhancedMap to add.
     /// - Returns: WayBuilder-instance to fulfill builder-pattern.
-    func addMap(map: SKTileMapNode) -> WayBuilder {
+    func addMap(map: SKEnhancedMap) -> WayBuilder {
         maps.append(map)
         
         return self

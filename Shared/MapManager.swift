@@ -12,7 +12,7 @@ class MapManager {
     
     // MARK: - Variables.
     
-    var maps: [MapType:SKTileMapNode] = [:]
+    var maps: [MapType:SKEnhancedMap] = [:]
     var towers = [Tower]()
     var economyBuildings = [Building]()
     

@@ -43,7 +43,7 @@ class UserInteractionManager {
         // TODO
         // Change to correct selection from build menu.
         if let node = scene.camMenu.atPoint(event.location(in: scene.camMenu)) as? SKSpriteNode {
-            print("Hurray, a node in the build menu was touched: \(node.name!)!")
+            print("Hurray, a node in the build menu was touched: \(node.name ?? "No node-name provided.")!")
             
             if let name = node.name {
                 switch name {

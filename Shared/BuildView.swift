@@ -10,35 +10,108 @@ import SpriteKit
 
 class BuildView: SKNode {
     
-    var mainCatNode: SKNode
-    var buildIconsNode: SKNode
+    //var mainCatNode: SKNode
+    //var buildIconsNode: SKNode
+    var entries = [EntryType:SKNode]()
+    
+    enum EntryType {
+        case Super
+        case Buildings
+    }
     
     // MARK: - Initializers.
     
     override init() {
-        mainCatNode = SuperCategoriesNode()
-        buildIconsNode = BuildIcons()
-        
         super.init()
+        isUserInteractionEnabled = true
         
-        mainCatNode.position = CGPoint(x: frame.midX, y: frame.minY)
-        buildIconsNode.position = CGPoint(x: frame.midX, y: frame.minY + 70)
-        buildIconsNode.xScale = 0.6
-        buildIconsNode.yScale = 0.6
+        let categories = SKElementBar<SKSuperCategory>(defaultLenghtOfOneElement: 80, defaultSpacing: 20)
+        categories.elements.append(SKSuperCategory(text: "SUPER"))
         
-        addChild(mainCatNode)
-        addChild(buildIconsNode)
+        let icons = SKElementBar<SKBuildingIcon>(defaultLenghtOfOneElement: 50, defaultSpacing: 10)
+        icons.elements.append(SKBuildingIcon(imageNamed: "Grass"))
+        
+        entries.updateValue(categories, forKey: .Super)
+        entries.updateValue(icons, forKey: .Buildings)
+        
+        entries[.Super]!.position = CGPoint(x: frame.midX, y: frame.minY)
+        entries[.Buildings]!.position = CGPoint(x: frame.midX, y: frame.minY + 70)
+        entries[.Buildings]!.xScale = 0.6
+        entries[.Buildings]!.yScale = 0.6
+        addChild(entries[.Super]!)
+        addChild(entries[.Buildings]!)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods.
+    // MARK: - Interactions.
     
+    #if os(OSX)
     
+    override func mouseDown(with event: NSEvent) {
+        track(.I, "Yay, mouse in BuildView", self)
+    }
+    
+    #endif
     
     // MARK: - Inner classes.
+    
+    /// Represents a node working as the main category type
+    /// for a given set of elements.
+    class SKSuperCategory: SKLabelNode {
+        
+        override init() {
+            super.init()
+            self.isUserInteractionEnabled = true
+        }
+        
+        override init(fontNamed fontName: String?) {
+            super.init(fontNamed: fontName)
+            self.isUserInteractionEnabled = true
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        #if os(OSX)
+        
+        override func mouseDown(with event: NSEvent) {
+            track(.I, "", self)
+            
+            let p = parent as! SKElementBar<SKSuperCategory>
+            p.selection = self
+        }
+        
+        #endif
+    }
+    
+    /// Represents an element of a given set of buildings
+    /// by its icon.
+    class SKBuildingIcon: SKSpriteNode {
+        
+        override init(texture: SKTexture?, color: NSColor, size: CGSize) {
+            super.init(texture: texture, color: color, size: size)
+            self.isUserInteractionEnabled = true
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        #if os(OSX)
+        
+        override func mouseDown(with event: NSEvent) {
+            track(.I, "", self)
+            track(.I, "Parent: \(self.parent!)", self)
+            let p = self.parent as! SKElementBar<SKBuildingIcon>
+            p.selection = self
+        }
+        
+        #endif
+    }
     
     class BuildIconsBuilder {
         
@@ -65,77 +138,9 @@ class BuildView: SKNode {
             default:
                 nodes.append(SKSpriteNode(imageNamed: "Lake"))
             }
-
+            
             return nodes
         }
     }
-    
-    class BuildIcons: SKNode {
-        
-        var icons = [SKSpriteNode]()
-        let defaultLength: Int = 60
-        let defaultSpacing: Int = 20
-    
-        override init() {
-            super.init()
-            
-            icons = BuildIconsBuilder.make(type: .Combat)
-            ViewHelper.correctlyAlignElements(elements: icons, lengthPerElement: defaultLength, spacing: defaultSpacing)
-            ViewHelper.addToChild(elements: icons, parent: self)
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        #if os(OSX)
-        
-        override func mouseDown(with event: NSEvent) {
-            track(.I, "", self)
-        }
-        
-        #endif
-    }
-    
-    class SuperCategoriesNode: SKNode {
-        
-        var cats = [SKNode]()
-        let defaultLength: Int = 100
-        let defaultSpacing: Int = 20
 
-        override init() {
-            super.init()
-            
-            cats.append(makeCat(name: "CIVIL"))
-            cats.append(makeCat(name: "COMBAT"))
-            cats.append(makeCat(name: "ECONOMY"))
-            cats.append(makeCat(name: "SPECIAL"))
-            
-            ViewHelper.correctlyAlignElements(elements: cats, lengthPerElement: defaultLength, spacing: defaultSpacing)
-            ViewHelper.addToChild(elements: cats, parent: self)
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        func makeCat(name: String) -> SKLabelNode {
-            let cat = SKLabelNode(text: name)
-            cat.fontSize = 20
-            cat.fontName = "SFUIDisplay-Medium"
-            cat.fontColor = .white
-            
-            return cat
-        }
-        
-        // MARK: - Interactions.
-        
-        #if os(OSX)
-        
-        override func mouseDown(with event: NSEvent) {
-            track(.I, "", self)
-        }
-        
-        #endif
-    }
 }

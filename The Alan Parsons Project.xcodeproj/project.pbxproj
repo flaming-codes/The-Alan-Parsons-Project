@@ -7,13 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E90AEF2B1EC4F3C9005490BE /* SelectionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AEF2A1EC4F3C9005490BE /* SelectionCache.swift */; };
+		E90AEF2C1EC4F3C9005490BE /* SelectionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AEF2A1EC4F3C9005490BE /* SelectionCache.swift */; };
+		E90AEF2D1EC4F3C9005490BE /* SelectionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AEF2A1EC4F3C9005490BE /* SelectionCache.swift */; };
+		E90AEF2F1EC4FE07005490BE /* SKEnhancedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AEF2E1EC4FE07005490BE /* SKEnhancedMap.swift */; };
+		E90AEF301EC4FE07005490BE /* SKEnhancedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AEF2E1EC4FE07005490BE /* SKEnhancedMap.swift */; };
+		E90AEF311EC4FE07005490BE /* SKEnhancedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AEF2E1EC4FE07005490BE /* SKEnhancedMap.swift */; };
 		E90F04521EBA33C200C768B2 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04511EBA33C200C768B2 /* LogHelper.swift */; };
 		E90F04531EBA33C200C768B2 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04511EBA33C200C768B2 /* LogHelper.swift */; };
 		E90F04541EBA33C200C768B2 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04511EBA33C200C768B2 /* LogHelper.swift */; };
 		E90F04561EBA343600C768B2 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04551EBA343600C768B2 /* LogType.swift */; };
 		E90F04571EBA343600C768B2 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04551EBA343600C768B2 /* LogType.swift */; };
 		E90F04581EBA343600C768B2 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F04551EBA343600C768B2 /* LogType.swift */; };
+		E917DC381EC34AAB00247FA6 /* TowerMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E917DC371EC34AAB00247FA6 /* TowerMapper.swift */; };
+		E917DC391EC34AAB00247FA6 /* TowerMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E917DC371EC34AAB00247FA6 /* TowerMapper.swift */; };
+		E917DC3A1EC34AAB00247FA6 /* TowerMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E917DC371EC34AAB00247FA6 /* TowerMapper.swift */; };
+		E917DC3C1EC34AF500247FA6 /* TowerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E917DC3B1EC34AF500247FA6 /* TowerType.swift */; };
+		E917DC3D1EC34AF500247FA6 /* TowerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E917DC3B1EC34AF500247FA6 /* TowerType.swift */; };
+		E917DC3E1EC34AF500247FA6 /* TowerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E917DC3B1EC34AF500247FA6 /* TowerType.swift */; };
 		E93958251EC220E700109755 /* BuildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93958241EC220E700109755 /* BuildView.swift */; };
+		E95553AC1EC373870070DD1E /* SKElementBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95553AB1EC373870070DD1E /* SKElementBar.swift */; };
+		E95553AD1EC373870070DD1E /* SKElementBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95553AB1EC373870070DD1E /* SKElementBar.swift */; };
+		E95553AE1EC373870070DD1E /* SKElementBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95553AB1EC373870070DD1E /* SKElementBar.swift */; };
+		E95553B01EC378740070DD1E /* SKCategoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95553AF1EC378740070DD1E /* SKCategoryNode.swift */; };
+		E95553B11EC378740070DD1E /* SKCategoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95553AF1EC378740070DD1E /* SKCategoryNode.swift */; };
+		E95553B21EC378740070DD1E /* SKCategoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95553AF1EC378740070DD1E /* SKCategoryNode.swift */; };
 		E95C73D91EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
 		E95C73DA1EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
 		E95C73DB1EB94ED700D03F60 /* TerrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C73D81EB94ED700D03F60 /* TerrainType.swift */; };
@@ -128,9 +146,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E90AEF2A1EC4F3C9005490BE /* SelectionCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionCache.swift; sourceTree = "<group>"; };
+		E90AEF2E1EC4FE07005490BE /* SKEnhancedMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKEnhancedMap.swift; sourceTree = "<group>"; };
 		E90F04511EBA33C200C768B2 /* LogHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		E90F04551EBA343600C768B2 /* LogType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogType.swift; sourceTree = "<group>"; };
+		E917DC371EC34AAB00247FA6 /* TowerMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerMapper.swift; sourceTree = "<group>"; };
+		E917DC3B1EC34AF500247FA6 /* TowerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerType.swift; sourceTree = "<group>"; };
 		E93958241EC220E700109755 /* BuildView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildView.swift; sourceTree = "<group>"; };
+		E95553AB1EC373870070DD1E /* SKElementBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKElementBar.swift; sourceTree = "<group>"; };
+		E95553AF1EC378740070DD1E /* SKCategoryNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKCategoryNode.swift; sourceTree = "<group>"; };
 		E95C73D81EB94ED700D03F60 /* TerrainType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerrainType.swift; sourceTree = "<group>"; };
 		E9673C411EBB4DD500574E15 /* WayTiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WayTiles.sks; sourceTree = "<group>"; };
 		E9746A3D1E9BA5AC003D64E6 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -208,6 +232,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E917DC361EC34A9800247FA6 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				E917DC371EC34AAB00247FA6 /* TowerMapper.swift */,
+			);
+			name = Mappers;
+			sourceTree = "<group>";
+		};
 		E9673C401EBB4DB000574E15 /* Tiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +263,7 @@
 		E9746A3C1E9BA5AC003D64E6 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				E917DC361EC34A9800247FA6 /* Mappers */,
 				E9D506061EAA654000AE6E26 /* Builders */,
 				E9D505FD1EA8FC3700AE6E26 /* Custom Views */,
 				E9E824091E9E807C00ECA8E5 /* Enums */,
@@ -360,6 +393,7 @@
 				E9E823F41E9D7C9A00ECA8E5 /* Mapping.swift */,
 				E9D505F91EA8F5FE00AE6E26 /* Callbacks.swift */,
 				E9ACFC961EBE283900AC181D /* EvolvableTimer.swift */,
+				E90AEF2A1EC4F3C9005490BE /* SelectionCache.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -370,6 +404,9 @@
 				E9995C421EB23AE80092A77F /* IDGenerator.swift */,
 				E97D6D091EA3AE6F00B8AA87 /* Monster.swift */,
 				E9ACFC9A1EBE29DD00AC181D /* EvolutionTimer.swift */,
+				E95553AB1EC373870070DD1E /* SKElementBar.swift */,
+				E95553AF1EC378740070DD1E /* SKCategoryNode.swift */,
+				E90AEF2E1EC4FE07005490BE /* SKEnhancedMap.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -384,6 +421,7 @@
 				E90F04551EBA343600C768B2 /* LogType.swift */,
 				E9ACFC8E1EBD25D300AC181D /* DamageType.swift */,
 				E9ACFC921EBD263700AC181D /* MonsterType.swift */,
+				E917DC3B1EC34AF500247FA6 /* TowerType.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -547,8 +585,12 @@
 				E95C73D91EB94ED700D03F60 /* TerrainType.swift in Sources */,
 				E9ACFC971EBE283900AC181D /* EvolvableTimer.swift in Sources */,
 				E97D6D021EA2849400B8AA87 /* BuildMenuManager.swift in Sources */,
+				E95553AC1EC373870070DD1E /* SKElementBar.swift in Sources */,
+				E917DC381EC34AAB00247FA6 /* TowerMapper.swift in Sources */,
+				E95553B01EC378740070DD1E /* SKCategoryNode.swift in Sources */,
 				E9ACFC8B1EBCA36600AC181D /* WaveManager.swift in Sources */,
 				E9D506031EAA485A00AE6E26 /* BuildMenuView.swift in Sources */,
+				E90AEF2B1EC4F3C9005490BE /* SelectionCache.swift in Sources */,
 				E9746A751E9BA5AD003D64E6 /* GameScene.swift in Sources */,
 				E97D6CEA1EA278E100B8AA87 /* MapManager.swift in Sources */,
 				E9D505FA1EA8F5FE00AE6E26 /* Callbacks.swift in Sources */,
@@ -562,11 +604,13 @@
 				E9E823F51E9D7C9A00ECA8E5 /* Mapping.swift in Sources */,
 				E9ACFC8F1EBD25D300AC181D /* DamageType.swift in Sources */,
 				E9DFAEC11EB3B4C700DE143D /* MapType.swift in Sources */,
+				E90AEF2F1EC4FE07005490BE /* SKEnhancedMap.swift in Sources */,
 				E9ACFC9B1EBE29DD00AC181D /* EvolutionTimer.swift in Sources */,
 				E9746A4B1E9BA5AC003D64E6 /* GameViewController.swift in Sources */,
 				E9746A491E9BA5AC003D64E6 /* AppDelegate.swift in Sources */,
 				E9DB6E3F1EC2378900DE28C7 /* ViewHelper.swift in Sources */,
 				E9D505FF1EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
+				E917DC3C1EC34AF500247FA6 /* TowerType.swift in Sources */,
 				E9ACFC931EBD263700AC181D /* MonsterType.swift in Sources */,
 				E97D6D061EA3A57700B8AA87 /* Resources.swift in Sources */,
 				E97D6CEE1EA2792900B8AA87 /* StateValuesManager.swift in Sources */,
@@ -587,8 +631,12 @@
 				E97D6D031EA2849400B8AA87 /* BuildMenuManager.swift in Sources */,
 				E9ACFC981EBE283900AC181D /* EvolvableTimer.swift in Sources */,
 				E95C73DA1EB94ED700D03F60 /* TerrainType.swift in Sources */,
+				E95553AD1EC373870070DD1E /* SKElementBar.swift in Sources */,
+				E917DC391EC34AAB00247FA6 /* TowerMapper.swift in Sources */,
+				E95553B11EC378740070DD1E /* SKCategoryNode.swift in Sources */,
 				E97D6CEB1EA278E100B8AA87 /* MapManager.swift in Sources */,
 				E9D506041EAA485A00AE6E26 /* BuildMenuView.swift in Sources */,
+				E90AEF2C1EC4F3C9005490BE /* SelectionCache.swift in Sources */,
 				E9746A761E9BA5AD003D64E6 /* GameScene.swift in Sources */,
 				E97D6CF31EA27A2F00B8AA87 /* Tower.swift in Sources */,
 				E9D505FB1EA8F5FE00AE6E26 /* Callbacks.swift in Sources */,
@@ -602,11 +650,13 @@
 				E97D6D131EA3D47600B8AA87 /* UserInteractionManager.swift in Sources */,
 				E9ACFC901EBD25D300AC181D /* DamageType.swift in Sources */,
 				E9DFAEC21EB3B4C700DE143D /* MapType.swift in Sources */,
+				E90AEF301EC4FE07005490BE /* SKEnhancedMap.swift in Sources */,
 				E9ACFC9C1EBE29DD00AC181D /* EvolutionTimer.swift in Sources */,
 				E9746A5C1E9BA5AD003D64E6 /* GameViewController.swift in Sources */,
 				E97D6CEF1EA2792900B8AA87 /* StateValuesManager.swift in Sources */,
 				E9DB6E401EC2378900DE28C7 /* ViewHelper.swift in Sources */,
 				E97D6CFF1EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
+				E917DC3D1EC34AF500247FA6 /* TowerType.swift in Sources */,
 				E9ACFC941EBD263700AC181D /* MonsterType.swift in Sources */,
 				E9D506001EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
 				E9746A5A1E9BA5AD003D64E6 /* AppDelegate.swift in Sources */,
@@ -627,8 +677,12 @@
 				E97D6D041EA2849400B8AA87 /* BuildMenuManager.swift in Sources */,
 				E9ACFC991EBE283900AC181D /* EvolvableTimer.swift in Sources */,
 				E95C73DB1EB94ED700D03F60 /* TerrainType.swift in Sources */,
+				E95553AE1EC373870070DD1E /* SKElementBar.swift in Sources */,
+				E917DC3A1EC34AAB00247FA6 /* TowerMapper.swift in Sources */,
+				E95553B21EC378740070DD1E /* SKCategoryNode.swift in Sources */,
 				E97D6CEC1EA278E100B8AA87 /* MapManager.swift in Sources */,
 				E9D506051EAA485A00AE6E26 /* BuildMenuView.swift in Sources */,
+				E90AEF2D1EC4F3C9005490BE /* SelectionCache.swift in Sources */,
 				E9746A771E9BA5AD003D64E6 /* GameScene.swift in Sources */,
 				E97D6CF41EA27A2F00B8AA87 /* Tower.swift in Sources */,
 				E9D505FC1EA8F5FE00AE6E26 /* Callbacks.swift in Sources */,
@@ -642,11 +696,13 @@
 				E97D6D141EA3D47600B8AA87 /* UserInteractionManager.swift in Sources */,
 				E9ACFC911EBD25D300AC181D /* DamageType.swift in Sources */,
 				E9DFAEC31EB3B4C700DE143D /* MapType.swift in Sources */,
+				E90AEF311EC4FE07005490BE /* SKEnhancedMap.swift in Sources */,
 				E9ACFC9D1EBE29DD00AC181D /* EvolutionTimer.swift in Sources */,
 				E9746A6A1E9BA5AD003D64E6 /* GameViewController.swift in Sources */,
 				E97D6CF01EA2792900B8AA87 /* StateValuesManager.swift in Sources */,
 				E9DB6E411EC2378900DE28C7 /* ViewHelper.swift in Sources */,
 				E97D6D001EA27AAE00B8AA87 /* BuildableUnit.swift in Sources */,
+				E917DC3E1EC34AF500247FA6 /* TowerType.swift in Sources */,
 				E9ACFC951EBD263700AC181D /* MonsterType.swift in Sources */,
 				E9D506011EA8FC7200AE6E26 /* StateValuesView.swift in Sources */,
 				E9746A681E9BA5AD003D64E6 /* AppDelegate.swift in Sources */,

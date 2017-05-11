@@ -18,7 +18,7 @@ class TowerBuilder {
     
     
     /// Tower to alter during building process and deliever as product.
-    var towerInCache: Tower?
+    fileprivate var towerInCache: Tower?
     
     enum TowerType {
         case Basic

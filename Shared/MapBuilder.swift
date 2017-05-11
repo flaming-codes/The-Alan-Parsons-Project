@@ -43,16 +43,16 @@ struct MapBuilder {
         zPositions.updateValue(4, forKey: .InBuildMode)
     }
     
-    func make(with tileSet: SKTileSet, columns: Int, rows: Int, fill: Bool) -> SKTileMapNode {
-        var map: SKTileMapNode
+    func make(with tileSet: SKTileSet, columns: Int, rows: Int, fill: Bool) -> SKEnhancedMap {
+        var map: SKEnhancedMap
         
-        map = fill ? SKTileMapNode(
+        map = fill ? SKEnhancedMap(
             tileSet: tileSet,
             columns: columns,
             rows: rows,
             tileSize: tileSet.defaultTileSize,
             fillWith: tileSet.tileGroups.first!)
-            : SKTileMapNode(
+            : SKEnhancedMap(
                 tileSet: tileSet,
                 columns: columns,
                 rows: rows,
@@ -62,7 +62,7 @@ struct MapBuilder {
         return map
     }
     
-    func make(type: MapType, fill: Bool) -> SKTileMapNode {
+    func make(type: MapType, fill: Bool) -> SKEnhancedMap {
         guard tileSets[type] != nil else {
             track(.F, "TileSet not set, no tiles to choose from.", self)
             abort()
@@ -76,7 +76,7 @@ struct MapBuilder {
     }
     
     // Works! (Passes by reference)
-    func expand(map: SKTileMapNode, type: MapType, andFill: Bool = false) {
+    func expand(map: SKEnhancedMap, type: MapType, andFill: Bool = false) {
         let startColumn = map.numberOfColumns
 
         map.numberOfColumns += defaultColumns
@@ -98,7 +98,7 @@ struct MapBuilder {
     }
     
     /*
-    func expandWithFill(map: SKTileMapNode, type: MapType) {
+    func expandWithFill(map: SKEnhancedMap, type: MapType) {
         let startColumn = map.numberOfColumns
         
         self.expand(map: map, type: type)
